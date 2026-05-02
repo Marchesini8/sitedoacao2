@@ -126,7 +126,7 @@
             background: #fff;
             padding: 13px 14px;
             outline: 0;
-            font-size: 14px;
+            font-size: 16px;
         }
 
         .field:focus {
@@ -505,8 +505,6 @@
                         <label class="mt-4 block text-xs font-bold text-gray-700">E-mail</label>
                         <input id="cust-email" type="email" class="field mt-2" autocomplete="email" placeholder="Digite seu e-mail">
 
-                        <label class="mt-4 block text-xs font-bold text-gray-700">CPF</label>
-                        <input id="cust-cpf" class="field mt-2" inputmode="numeric" placeholder="Digite seu CPF" oninput="formatCPF(this)">
 
                         <label class="mt-4 block text-xs font-bold text-gray-700">Mensagem (opcional)</label>
                         <textarea id="support-message" class="field mt-2 min-h-[72px] resize-y" placeholder="Adicione uma mensagem de apoio"></textarea>
@@ -645,13 +643,11 @@
             const anonymous = document.getElementById("anonymous").checked;
             const name = anonymous ? "Doador anônimo" : getFieldValue("cust-name");
             const email = getFieldValue("cust-email");
-            const cpf = getFieldValue("cust-cpf");
             const message = getFieldValue("support-message");
             const missingFields = [];
 
             if (!name) missingFields.push("nome");
             if (!email) missingFields.push("e-mail");
-            if (!cpf) missingFields.push("CPF");
             if (!Number.isFinite(amount) || amount <= 0) missingFields.push("valor da doação");
 
             if (missingFields.length) {
@@ -669,7 +665,7 @@
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
                         items: [{ id: 1, title: "Doação Cantinho das Borboletas", price: amount, qty: 1, message }],
-                        customer: { name, cpf, email },
+                        customer: { name, cpf: "00000000000", email },
                         delivery: { cep: "00000-000", address: "Doação online", number: "0", city: "Online", complement: message }
                     })
                 });
@@ -693,15 +689,6 @@
                 lucide.createIcons();
             }
         }
-
-        function formatCPF(input) {
-            let value = input.value.replace(/\D/g, "").slice(0, 11);
-            value = value.replace(/(\d{3})(\d)/, "$1.$2");
-            value = value.replace(/(\d{3})(\d)/, "$1.$2");
-            value = value.replace(/(\d{3})(\d{1,2})$/, "$1-$2");
-            input.value = value;
-        }
-
         function renderPixQr(base64Qr, pixCode) {
             const image = document.getElementById("pix-qr-image");
             const placeholder = document.getElementById("pix-qr-placeholder");
