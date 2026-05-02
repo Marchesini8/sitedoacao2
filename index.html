@@ -153,7 +153,11 @@
 
         .donation-panel {
             width: min(100%, 420px);
-            min-height: 100dvh;
+            height: 100dvh;
+            max-height: 100dvh;
+            overflow-y: auto;
+            overscroll-behavior: contain;
+            -webkit-overflow-scrolling: touch;
             background: #fff;
         }
 
@@ -217,7 +221,9 @@
 
             .donation-panel {
                 width: 100%;
-                min-height: 100dvh;
+                height: 100dvh;
+                max-height: 100dvh;
+                padding-bottom: max(2rem, env(safe-area-inset-bottom));
             }
 
             .assist-card {
@@ -457,8 +463,8 @@
         </section>
     </main>
 
-    <div id="donation-modal" class="fixed inset-0 z-50 hidden bg-black/40">
-        <div class="flex min-h-full justify-end">
+    <div id="donation-modal" class="fixed inset-0 z-50 hidden overflow-y-auto overscroll-contain bg-black/40">
+        <div class="flex min-h-[100dvh] justify-end">
             <aside class="modal-shell donation-panel relative overflow-y-auto p-2 shadow-2xl md:p-3">
                 <button onclick="closeDonation()" class="absolute right-3 top-3 rounded-full p-2 text-gray-600 hover:bg-gray-100" aria-label="Fechar doação">
                     <i data-lucide="x" class="h-4 w-4"></i>
@@ -609,6 +615,9 @@
             const modal = document.getElementById("donation-modal");
             modal.classList.remove("hidden");
             document.body.style.overflow = "hidden";
+            modal.scrollTop = 0;
+            const panel = modal.querySelector(".donation-panel");
+            if (panel) panel.scrollTop = 0;
             setTimeout(() => modal.classList.add("modal-active"), 20);
             lucide.createIcons();
         }
