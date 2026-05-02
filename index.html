@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
@@ -157,6 +157,58 @@
             background: #fff;
         }
 
+
+        .update-gallery {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            border: 1px solid #e4e7ec;
+            background: #f8f9fb;
+        }
+
+        .update-gallery-track {
+            display: flex;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scrollbar-width: none;
+        }
+
+        .update-gallery-track::-webkit-scrollbar { display: none; }
+
+        .update-gallery img {
+            width: 100%;
+            min-width: 100%;
+            max-height: 560px;
+            object-fit: cover;
+            scroll-snap-align: start;
+        }
+
+        .gallery-arrow {
+            position: absolute;
+            top: 50%;
+            display: grid;
+            width: 34px;
+            height: 34px;
+            place-items: center;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.92);
+            color: var(--pink);
+            box-shadow: 0 10px 24px rgba(16, 24, 40, 0.16);
+            transform: translateY(-50%);
+        }
+
+        .gallery-arrow.prev { left: 10px; }
+        .gallery-arrow.next { right: 10px; }
+
+        .donor-row {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 14px;
+            border-bottom: 1px solid #e4e7ec;
+            padding: 18px 0;
+        }
+
+        .donor-row:last-child { border-bottom: 0; }
         @media (max-width: 768px) {
             .hero-bg {
                 min-height: 360px;
@@ -343,6 +395,64 @@
                 <p>Graças a solidariedade de pessoas como você, conseguimos entregar curativos, medicamentos, suplementos e materiais essenciais para quem mais precisa.</p>
                 <p class="story-accent bg-[#fff7fb] py-4 pl-4 font-bold text-[var(--pink)]">Cada dia sem doação e um dia a mais de espera para uma criança que já esperou tempo demais.</p>
                 <p>Não existe valor pequeno. R$ 20 compra fraldas, R$ 50 paga curativos, R$ 100 garante uma consulta médica. O que para você é um café a menos no mês, para essas crianças é a diferença entre ter cuidado ou não ter.</p>
+                <div class="update-gallery mt-7">
+                    <div id="update-gallery-track" class="update-gallery-track">
+                        <img src="https://cantinhodasborboletas-br.click/lp-cantinho/images/att4.png" alt="Atualização da campanha com doações recebidas" loading="lazy">
+                        <img src="https://cantinhodasborboletas-br.click/lp-cantinho/images/att2.png" alt="Atualização da campanha com alimentos e insumos" loading="lazy">
+                    </div>
+                    <button type="button" class="gallery-arrow prev" onclick="scrollUpdateGallery(-1)" aria-label="Imagem anterior">
+                        <i data-lucide="chevron-left" class="h-5 w-5"></i>
+                    </button>
+                    <button type="button" class="gallery-arrow next" onclick="scrollUpdateGallery(1)" aria-label="Próxima imagem">
+                        <i data-lucide="chevron-right" class="h-5 w-5"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section class="border-t border-gray-200 bg-white">
+            <div class="mx-auto max-w-[760px] px-4 py-10 md:py-14">
+                <div class="story-accent pl-4">
+                    <h2 class="text-xl font-black">Quem já doou</h2>
+                </div>
+
+                <div class="mt-8 text-sm leading-7 text-gray-700">
+                    <p>Fiz minha doação semana passada. É rápido pelo PIX e fico tranquila sabendo que vai direto para as crianças. Pretendo doar todo mês.</p>
+                    <div class="donor-row">
+                        <p><b>Mariana S.</b> <span class="text-xs text-gray-500">- 11/03/2026</span></p>
+                        <p class="font-black text-[var(--pink)]">R$ 100</p>
+                    </div>
+
+                    <p class="mt-5">Conheço uma das cuidadoras do projeto. O trabalho é sério. Doei R$ 50 e indiquei para minha família também.</p>
+                    <div class="donor-row">
+                        <p><b>Carlos R.</b> <span class="text-xs text-gray-500">- 08/03/2026</span></p>
+                        <p class="font-black text-[var(--pink)]">R$ 50</p>
+                    </div>
+
+                    <p class="mt-5">Doei porque sei o que é precisar de ajuda. R$ 35 pode parecer pouco, mas quando muita gente faz isso junto, vira muito.</p>
+                    <div class="donor-row">
+                        <p><b>Ana Paula M.</b> <span class="text-xs text-gray-500">- 05/03/2026</span></p>
+                        <p class="font-black text-[var(--pink)]">R$ 35</p>
+                    </div>
+
+                    <p class="mt-5">Meus filhos quiseram ajudar com o dinheiro do lanche deles. Fizemos o PIX juntos. Ficaram orgulhosos.</p>
+                    <div class="donor-row">
+                        <p><b>Roberto F.</b> <span class="text-xs text-gray-500">- 01/03/2026</span></p>
+                        <p class="font-black text-[var(--pink)]">R$ 200</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="bg-[var(--soft)]">
+            <div class="mx-auto max-w-[760px] px-4 py-10 text-center md:py-14">
+                <h2 class="text-lg font-black">Se você leu até aqui, considere doar.</h2>
+                <p class="mx-auto mt-4 max-w-md text-sm leading-7 text-gray-600">
+                    Qualquer valor ajuda. Leva menos de um minuto pelo PIX e chega direto para quem precisa.
+                </p>
+                <button onclick="openDonation()" class="mt-7 w-full max-w-[260px] rounded-md bg-[var(--pink)] px-6 py-4 text-sm font-black text-white transition hover:bg-[var(--pink-dark)]">
+                    Doar agora
+                </button>
             </div>
         </section>
     </main>
@@ -489,6 +599,12 @@
             }
         }
 
+
+        function scrollUpdateGallery(direction) {
+            const track = document.getElementById("update-gallery-track");
+            if (!track) return;
+            track.scrollBy({ left: direction * track.clientWidth, behavior: "smooth" });
+        }
         function openDonation() {
             const modal = document.getElementById("donation-modal");
             modal.classList.remove("hidden");
