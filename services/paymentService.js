@@ -1,10 +1,14 @@
 const axios = require('axios');
 
-const FIXED_SHIPPING_AMOUNT = 49.9;
-const SHIPPING_ITEM_TITLE = 'Frete fixo';
+const DEFAULT_DONATION_AMOUNT = Number(process.env.DONATION_AMOUNT || 49.9);
+const DONATION_ITEM_TITLE = 'Doacao Cantinho das Borboletas';
 
 exports.createPixPayment = async ({ items, customer, delivery }) => {
-  const totalInCents = Math.round(FIXED_SHIPPING_AMOUNT * 100);
+  const requestedAmount = Number(items?.[0]?.price || items?.[0]?.amount || DEFAULT_DONATION_AMOUNT);
+  const donationAmount = Number.isFinite(requestedAmount) && requestedAmount > 0
+    ? requestedAmount
+    : DEFAULT_DONATION_AMOUNT;
+  const totalInCents = Math.round(donationAmount * 100);
   const pixEndpoint = process.env.PAYMENT_PIX_ENDPOINT || '/payments';
   const offerHash = process.env.IRONPAY_OFFER_HASH;
   const productHash = process.env.IRONPAY_PRODUCT_HASH;
@@ -12,7 +16,7 @@ exports.createPixPayment = async ({ items, customer, delivery }) => {
   const expireInDays = Number(process.env.IRONPAY_EXPIRE_IN_DAYS || 1);
   const cart = [{
     product_hash: productHash,
-    title: SHIPPING_ITEM_TITLE,
+    title: DONATION_ITEM_TITLE,
     cover: null,
     price: totalInCents,
     quantity: 1,
@@ -106,9 +110,9 @@ exports.createPixPayment = async ({ items, customer, delivery }) => {
         response.data.qrCode ||
         response.data.pix?.qr_code_base64 ||
         null,
-      charged_total: FIXED_SHIPPING_AMOUNT,
+      charged_total: donationAmount,
       product_total: 0,
-      shipping_total: FIXED_SHIPPING_AMOUNT,
+      shipping_total: donationAmount,
       source: 'ironpay',
       raw: response.data,
     };
@@ -124,4 +128,4 @@ exports.createPixPayment = async ({ items, customer, delivery }) => {
   }
 };
 
-exports.FIXED_SHIPPING_AMOUNT = FIXED_SHIPPING_AMOUNT;
+exports.DEFAULT_DONATION_AMOUNT = DEFAULT_DONATION_AMOUNT;

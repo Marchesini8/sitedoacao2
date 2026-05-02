@@ -1,789 +1,624 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mercado Livre - Premium Experience</title>
-    
-    <!-- Tailwind CSS -->
+    <title>Cantinho das Borboletas - Doações</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    
-    <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
-
     <style>
-        @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap");
-        
+        @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Pacifico&display=swap");
+
         :root {
-            --ml-yellow: #fff159;
-            --ml-blue: #3483fa;
-            --ml-bg: #ededed;
+            --pink: #e72582;
+            --pink-dark: #c91569;
+            --teal: #13b8ad;
+            --ink: #101828;
+            --soft: #f7f7f7;
         }
 
-        body { 
-            font-family: "Inter", sans-serif; 
-            background-color: var(--ml-bg);
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            font-family: "Inter", Arial, sans-serif;
+            color: var(--ink);
+            background: #fff;
             overflow-x: hidden;
             scroll-behavior: smooth;
         }
 
-        /* --- Animacoes de Navegacao --- */
-        .page-transition { transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
-        .fade-in { animation: fadeIn 0.6s ease-out forwards; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-        /* Efeito de elevacao nos cards */
-        .product-card { transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1); }
-        .product-card:hover { transform: translateY(-8px); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); }
-
-        /* Sidebar do Carrinho */
-        #cart-sidebar .sidebar-content { transform: translateX(100%); transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
-        #cart-sidebar.active .sidebar-content { transform: translateX(0); }
-        #cart-sidebar.active .backdrop { opacity: 1; pointer-events: auto; }
-
-        /* Modais */
-        .modal-container { transform: scale(0.9) translateY(30px); opacity: 0; transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1); }
-        .modal-active .modal-container { transform: scale(1) translateY(0); opacity: 1; }
-
-        /* Badge do Carrinho Pop */
-        @keyframes bump { 0% { transform: scale(1); } 50% { transform: scale(1.4); } 100% { transform: scale(1); } }
-        .bump { animation: bump 0.3s ease-out; }
-
-        .scrollbar-hide::-webkit-scrollbar { display: none; }
-        .line-clamp-2 { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-        .checkout-shell {
-            background:
-                radial-gradient(circle at top right, rgba(52, 131, 250, 0.18), transparent 28%),
-                radial-gradient(circle at bottom left, rgba(255, 241, 89, 0.22), transparent 24%),
-                linear-gradient(180deg, #ffffff 0%, #f7f9fc 100%);
+        .brand-mark {
+            width: 34px;
+            height: 34px;
+            display: grid;
+            place-items: center;
+            border-radius: 8px;
+            background: var(--pink);
+            color: #fff;
+            font-weight: 900;
         }
-        .field-shell {
-            border: 1px solid #e5e7eb;
-            background: rgba(255, 255, 255, 0.86);
-            transition: all 0.25s ease;
+
+        .hero-bg {
+            background-image:
+                linear-gradient(180deg, rgba(255,255,255,0.04) 0%, rgba(16,24,40,0.05) 45%, rgba(16,24,40,0.72) 100%),
+                url("https://ongjardimdasborboletas.org/wp-content/uploads/2022/07/iMG-BG-abarce-uma-borboleta-1024x771.png");
+            background-position: center center;
+            background-size: cover;
         }
-        .field-shell:focus-within {
-            border-color: #3483fa;
-            box-shadow: 0 0 0 4px rgba(52, 131, 250, 0.12);
-            transform: translateY(-1px);
+
+        .progress-bar {
+            height: 9px;
+            overflow: hidden;
+            border-radius: 999px;
+            background: #eceff3;
         }
-        .checkout-input {
+
+        .progress-fill {
+            width: 0%;
+            height: 100%;
+            border-radius: inherit;
+            background: var(--pink);
+            transition: width 450ms ease;
+        }
+
+        .story-accent { border-left: 4px solid var(--pink); }
+
+        .highlight {
+            color: var(--pink);
+            background: #fff0f7;
+            border-radius: 6px;
+            padding: 2px 6px;
+            font-weight: 900;
+        }
+
+        .facts-bg {
+            background-image:
+                linear-gradient(180deg, rgba(231,37,130,0.94), rgba(231,37,130,0.78) 62%, rgba(255,255,255,0.82)),
+                url("https://images.unsplash.com/photo-1584516150909-c43483ee7932?auto=format&fit=crop&w=2200&q=80");
+            background-position: center;
+            background-size: cover;
+        }
+
+        .texture {
+            background-color: #fff;
+            background-image:
+                radial-gradient(#e7edf2 0.8px, transparent 0.8px),
+                radial-gradient(#f3f5f7 0.8px, transparent 0.8px);
+            background-size: 18px 18px;
+            background-position: 0 0, 9px 9px;
+        }
+
+        .assist-card {
+            min-width: 130px;
+            overflow: hidden;
+            border-radius: 8px;
+            background: #161616;
+            box-shadow: 0 16px 35px rgba(16, 24, 40, 0.14);
+        }
+
+        .assist-card img {
+            height: 150px;
             width: 100%;
-            background: transparent;
-            outline: none;
-            color: #111827;
+            object-fit: cover;
         }
-        .checkout-input::placeholder { color: #9ca3af; }
-        .step-pill-active {
-            background: #111827;
-            color: white;
-            box-shadow: 0 12px 25px rgba(17, 24, 39, 0.18);
+
+        .script {
+            font-family: "Pacifico", cursive;
+            color: var(--pink);
         }
-        .step-pill-done {
-            background: rgba(22, 163, 74, 0.12);
-            color: #15803d;
+
+        .modal-shell {
+            transform: translateX(20px);
+            opacity: 0;
+            transition: 220ms ease;
         }
-        .step-pill-idle {
-            background: rgba(255, 255, 255, 0.72);
-            color: #6b7280;
-            border: 1px solid rgba(229, 231, 235, 0.9);
+
+        .modal-active .modal-shell {
+            transform: translateX(0);
+            opacity: 1;
         }
-        .checkout-chip {
-            background: rgba(255, 255, 255, 0.78);
-            border: 1px solid rgba(255,255,255,0.85);
-            box-shadow: 0 14px 30px rgba(15, 23, 42, 0.05);
+
+        .field {
+            width: 100%;
+            border: 1px solid #d9dde4;
+            border-radius: 8px;
+            background: #fff;
+            padding: 13px 14px;
+            outline: 0;
+            font-size: 14px;
         }
-        .checkout-card {
-            background: rgba(255,255,255,0.92);
-            border: 1px solid rgba(255,255,255,0.9);
-            box-shadow: 0 20px 45px rgba(15, 23, 42, 0.08);
+
+        .field:focus {
+            border-color: var(--pink);
+            box-shadow: 0 0 0 4px rgba(231, 37, 130, 0.12);
         }
-        .checkout-hero {
-            background: linear-gradient(135deg, rgba(17,24,39,0.98), rgba(52,131,250,0.95));
+
+        .amount-btn {
+            border: 1px solid #d9dde4;
+            border-radius: 8px;
+            background: #f8f9fb;
+            padding: 13px 8px;
+            font-size: 13px;
+            font-weight: 900;
+            transition: 150ms ease;
         }
-        .checkout-modal-scroll {
-            -webkit-overflow-scrolling: touch;
-            overscroll-behavior: contain;
+
+        .amount-btn.active,
+        .amount-btn:hover {
+            border-color: var(--pink);
+            background: var(--pink);
+            color: #fff;
         }
-        @media (max-width: 767px) {
-            #checkout-modal {
-                align-items: flex-start;
-                overflow-y: auto;
+
+        .donation-panel {
+            width: min(100%, 420px);
+            min-height: 100dvh;
+            background: #fff;
+        }
+
+        @media (max-width: 768px) {
+            .hero-bg {
+                min-height: 360px;
+                background-position: center center;
             }
-            #checkout-modal .modal-container {
-                max-height: calc(100dvh - 1rem);
-                margin: 0.5rem 0;
-                overflow-y: auto;
+
+            .donation-panel {
+                width: 100%;
+                min-height: 100dvh;
+            }
+
+            .assist-card {
+                min-width: 118px;
             }
         }
     </style>
 </head>
-<body class="text-gray-900">
-
-    <!-- HEADER -->
-    <header class="bg-[#fff159] w-full pt-2 pb-3 shadow-sm sticky top-0 z-[100]">
-        <div class="max-w-7xl mx-auto px-4 flex flex-col gap-3">
-            <div class="flex items-center justify-between gap-8">
-                <div class="flex items-center gap-4 flex-1">
-                    <div class="flex items-center gap-3 cursor-pointer hover:opacity-80 transition-opacity" onclick="showPage('home')">
-                        <img src="https://play-lh.googleusercontent.com/iVaeA0HDw8CZjEM-K7GdLB9XYmpcwVFSuv4Q8o9uh4Br7PuKCm3QSYCVU73tr9BBXdR_7xTX4yO0azOJegRVcA" alt="Logo Mercado Livre" class="w-12 h-12 object-contain rounded-full">
-                        <div class="flex flex-col leading-none font-bold text-2xl italic text-black">
-                            <span class="tracking-tighter">MERCADO</span>
-                            <span class="tracking-tighter -mt-1">LIVRE</span>
-                        </div>
-                    </div>
-                    <div class="flex-1 max-w-2xl relative group">
-                        <input type="text" placeholder="Buscar produtos, marcas e muito mais..." class="w-full bg-white py-2 px-4 pr-10 rounded-sm shadow-sm text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all">
-                        <div class="absolute right-0 top-0 h-full w-10 flex items-center justify-center border-l border-gray-200 group-focus-within:border-blue-500">
-                            <i data-lucide="search" class="w-5 h-5 text-gray-400"></i>
-                        </div>
-                    </div>
-                </div>
-                <div class="hidden lg:block overflow-hidden rounded-lg shadow-sm w-[310px] h-[46px]">
-                    <img src="https://assets.propmark.com.br/uploads/2022/01/KV_MELI_RGB_MERCHAN_1920x1080px.jpg" alt="Banner Mercado Livre" class="w-full h-full object-cover hover:scale-105 transition-transform duration-700">
-                </div>
-            </div>
-            <div class="flex items-center justify-between text-xs text-gray-700">
-                <div class="flex items-center gap-8">
-                    <div class="flex items-center gap-1 cursor-pointer group">
-                        <i data-lucide="map-pin" class="w-4 h-4 text-gray-600 group-hover:text-black transition-colors"></i>
-                        <div class="flex flex-col">
-                            <span class="text-[10px] text-gray-500">Enviar para</span>
-                            <span class="font-medium group-hover:text-black transition-colors">Sao Paulo 01001</span>
-                        </div>
-                    </div>
-                    <nav class="hidden md:flex items-center gap-4 font-medium">
-                        <a href="#" class="hover:text-black transition-colors">Categorias</a>
-                        <a href="#" class="hover:text-black transition-colors text-blue-600">Ofertas do Dia</a>
-                        <a href="#" class="hover:text-black transition-colors">Historico</a>
-                        <a href="#" class="hover:text-black transition-colors">Vender</a>
-                    </nav>
-                </div>
-                <div class="flex items-center gap-6">
-                    <div class="hidden sm:flex items-center gap-4 font-medium">
-                        <a href="#" class="hover:text-black transition-colors">Crie a sua conta</a>
-                        <a href="#" class="hover:text-black transition-colors">Entre</a>
-                        <a href="#" class="hover:text-black transition-colors">Compras</a>
-                    </div>
-                    <div class="flex items-center gap-4">
-                        <i data-lucide="bell" class="w-5 h-5 cursor-pointer hover:scale-110 transition-transform"></i>
-                        <div id="cart-btn" class="relative cursor-pointer hover:scale-110 transition-transform" onclick="toggleCart(true)">
-                            <i data-lucide="shopping-cart" class="w-5 h-5"></i>
-                            <span id="cart-count" class="hidden absolute -top-2 -right-2 bg-red-500 text-white text-[10px] font-bold px-1.5 py-0.5 rounded-full shadow-md">0</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<body>
+    <header class="sticky top-0 z-40 border-b border-gray-200 bg-white/95 backdrop-blur">
+        <div class="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 md:px-8">
+            <a href="#top" class="flex items-center gap-2 text-[12px] font-black uppercase leading-none text-[var(--pink)]">
+                <span class="brand-mark">B</span>
+                <span class="hidden sm:block">Cantinho<br>das Borboletas</span>
+            </a>
+            <button onclick="openDonation()" class="rounded-md bg-[var(--pink)] px-6 py-2 text-sm font-black text-white transition hover:bg-[var(--pink-dark)]">
+                Quero Ajudar
+            </button>
         </div>
     </header>
 
-    <!-- PAGINA HOME -->
-    <div id="page-home" class="page-transition">
-        <main class="pb-20">
-            <div class="w-full h-64 md:h-96 bg-gray-300 overflow-hidden relative">
-                <img src="./assets/banner-descontaco-neymar.png" class="w-full h-full object-cover" alt="Banner promocional Mercado Livre">
-                <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
-            </div>
-
-            <div class="max-w-7xl mx-auto px-4 -mt-12 relative z-10">
-                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-                    <div class="bg-white p-5 rounded-lg shadow-sm text-center flex flex-col items-center gap-3 cursor-pointer hover:shadow-xl transition-all duration-300 group">
-                        <div class="p-3 bg-blue-50 rounded-full group-hover:bg-blue-100 transition-colors"><i data-lucide="truck" class="text-blue-500 w-7 h-7"></i></div>
-                        <span class="text-xs font-bold text-gray-700">Frete fixo R$ 49,90</span>
-                    </div>
-                    <div class="bg-white p-5 rounded-lg shadow-sm text-center flex flex-col items-center gap-3 cursor-pointer hover:shadow-xl transition-all duration-300 group">
-                        <div class="p-3 bg-blue-50 rounded-full group-hover:bg-blue-100 transition-colors"><i data-lucide="credit-card" class="text-blue-500 w-7 h-7"></i></div>
-                        <span class="text-xs font-bold text-gray-700">Pagamento</span>
-                    </div>
-                    <div class="bg-white p-5 rounded-lg shadow-sm text-center flex flex-col items-center gap-3 cursor-pointer hover:shadow-xl transition-all duration-300 group">
-                        <div class="p-3 bg-blue-50 rounded-full group-hover:bg-blue-100 transition-colors"><i data-lucide="tag" class="text-blue-500 w-7 h-7"></i></div>
-                        <span class="text-xs font-bold text-gray-700">Ofertas</span>
-                    </div>
-                    <div class="bg-white p-5 rounded-lg shadow-sm text-center flex flex-col items-center gap-3 cursor-pointer hover:shadow-xl transition-all duration-300 group">
-                        <div class="p-3 bg-blue-50 rounded-full group-hover:bg-blue-100 transition-colors"><i data-lucide="star" class="text-blue-500 w-7 h-7"></i></div>
-                        <span class="text-xs font-bold text-gray-700">Mais vendidos</span>
-                    </div>
-                    <div class="bg-white p-5 rounded-lg shadow-sm text-center flex flex-col items-center gap-3 cursor-pointer hover:shadow-xl transition-all duration-300 group">
-                        <div class="p-3 bg-blue-50 rounded-full group-hover:bg-blue-100 transition-colors"><i data-lucide="zap" class="text-blue-500 w-7 h-7"></i></div>
-                        <span class="text-xs font-bold text-gray-700">Mercado Play</span>
-                    </div>
-                    <div class="bg-white p-5 rounded-lg shadow-sm text-center flex flex-col items-center gap-3 cursor-pointer hover:shadow-xl transition-all duration-300 group">
-                        <div class="p-3 bg-blue-50 rounded-full group-hover:bg-blue-100 transition-colors"><i data-lucide="user-circle" class="text-blue-500 w-7 h-7"></i></div>
-                        <span class="text-xs font-bold text-gray-700">Sua conta</span>
-                    </div>
+    <main id="top">
+        <section class="hero-bg relative">
+            <div class="absolute inset-x-0 bottom-0">
+                <div class="mx-auto max-w-7xl px-4 pb-8 md:px-8 md:pb-10">
+                    <h1 class="max-w-4xl text-2xl font-black leading-tight text-white md:text-4xl">
+                        Essas crianças precisam de cuidado todos os dias
+                    </h1>
+                    <p class="mt-3 max-w-2xl text-sm font-semibold text-white/90 md:text-base">
+                        Faça uma doação e ajude a manter o acolhimento que não pode parar.
+                    </p>
                 </div>
             </div>
+        </section>
 
-            <div class="max-w-7xl mx-auto px-4 mt-16">
-                <div class="flex items-center justify-between mb-8">
-                    <h2 class="text-2xl font-light text-gray-600">Inspirado no seu ultimo historico</h2>
-                    <a href="#" class="text-sm text-blue-600 font-medium hover:underline">Ver tudo</a>
+        <section class="border-b border-gray-200 bg-white">
+            <div class="mx-auto max-w-[760px] px-4 py-8 md:py-10">
+                <h2 class="text-base font-black leading-7 md:text-lg">
+                    Cantinho das Borboletas — Sem sua ajuda essas crianças continuam sofrendo todos os dias
+                </h2>
+
+                <div class="mt-6 flex items-end justify-between gap-5">
+                    <p id="raised-value" class="text-xl font-black text-[var(--pink)] md:text-2xl">R$ 0,00</p>
+                    <p id="goal-value" class="text-xs font-medium text-gray-500">meta de R$ 300.000,00</p>
                 </div>
-                <div class="flex gap-5 overflow-x-auto pb-8 scrollbar-hide" id="products-list"></div>
-            </div>
-        </main>
-    </div>
+                <div class="mt-3 progress-bar"><div id="progress-fill" class="progress-fill"></div></div>
+                <div class="mt-2 flex items-center justify-between text-xs font-medium text-gray-500">
+                    <span id="progress-label">0% arrecadado</span>
+                    <span>Cantinho das Borboletas</span>
+                </div>
 
-    <!-- PAGINA DETALHES -->
-    <div id="page-details" class="fixed inset-0 z-[150] hidden bg-white overflow-y-auto page-transition">
-        <div class="max-w-7xl mx-auto min-h-screen flex flex-col">
-            <div class="p-4 border-b flex justify-between items-center sticky top-0 bg-white/90 backdrop-blur-md z-10">
-                <button onclick="showPage('home')" class="flex items-center gap-2 text-blue-600 font-bold hover:translate-x-[-5px] transition-transform">
-                    <i data-lucide="chevron-left"></i> VOLTAR A LISTA
+                <button onclick="openDonation()" class="mt-6 w-full rounded-md bg-[var(--pink)] px-6 py-4 text-sm font-black text-white transition hover:bg-[var(--pink-dark)]">
+                    Salvar uma criança hoje
                 </button>
-                <div class="flex gap-5">
-                    <i data-lucide="heart" class="w-6 h-6 text-blue-600 cursor-pointer hover:fill-blue-600 transition-all"></i>
-                    <i data-lucide="share-2" class="w-6 h-6 text-blue-600 cursor-pointer"></i>
-                </div>
+            </div>
+        </section>
+
+        <section class="mx-auto max-w-[760px] px-4 py-10 md:py-14">
+            <div class="story-accent pl-4">
+                <h2 class="text-xl font-black leading-8 md:text-2xl">
+                    🦋 💔 "No Cantinho das Borboletas, acolhemos crianças que o mundo abandonou"
+                </h2>
             </div>
 
-            <div class="flex-1 p-4 md:p-10 grid grid-cols-1 lg:grid-cols-3 gap-12 fade-in">
-                <div class="lg:col-span-2 flex flex-col md:flex-row gap-6">
-                    <div class="flex md:flex-col gap-3 order-2 md:order-1">
-                        <div class="w-16 h-16 border-2 border-blue-600 rounded-lg p-1 cursor-pointer"><img id="det-img-1" class="w-full h-full object-contain"></div>
-                    </div>
-                    <div class="flex-1 order-1 md:order-2 bg-white rounded-2xl flex items-center justify-center p-4 border border-gray-100">
-                        <img id="det-main-image" class="max-h-[550px] object-contain hover:scale-105 transition-transform duration-500">
-                    </div>
-                </div>
+            <div class="mt-7 space-y-5 text-[15px] leading-8 text-gray-700">
+                <p>Todos os anos, nossa ONG acolhe <span class="highlight">dezenas de crianças abandonadas</span>.</p>
+                <p>
+                    E todas têm algo em comum: <span class="highlight">doenças raras, dolorosas e cruéis</span>, como a
+                    <span class="highlight">epidermólise bolhosa</span>, uma condição que deixa a pele em carne viva,
+                    provocando feridas profundas, sangramentos constantes e dores que nenhuma criança deveria sentir.
+                </p>
+                <p>Essas crianças <span class="highlight">não escolheram sofrer</span>.</p>
+                <p>
+                    Aqui no <span class="highlight">Cantinho das Borboletas</span>, nós oferecemos lar, alimento, amor e principalmente
+                    os <span class="highlight">medicamentos e curativos</span> que podem <span class="highlight">salvar suas vidas</span>.
+                </p>
+            </div>
+        </section>
 
-                <div class="flex flex-col gap-5 h-fit sticky top-28">
-                    <div class="border border-gray-200 rounded-2xl p-8 bg-white shadow-sm">
-                        <span class="text-xs text-gray-400 font-medium uppercase tracking-wider">Novo | +50 mil vendidos</span>
-                        <h1 id="det-title" class="text-2xl font-bold mt-2 leading-tight text-gray-800"></h1>
-                        <div class="flex items-center gap-2 mt-3 text-blue-600">
-                            <span class="font-bold">4.9</span>
-                            <div class="flex"><i data-lucide="star" class="w-3 h-3 fill-current"></i><i data-lucide="star" class="w-3 h-3 fill-current"></i><i data-lucide="star" class="w-3 h-3 fill-current"></i><i data-lucide="star" class="w-3 h-3 fill-current"></i><i data-lucide="star" class="w-3 h-3 fill-current"></i></div>
-                        </div>
-                        <div class="mt-6">
-                            <span id="det-old-price" class="text-sm text-gray-400"></span>
-                            <div class="flex items-baseline gap-3">
-                                <span id="det-price" class="text-4xl font-light"></span>
-                                <span class="text-green-500 font-bold text-sm">45% OFF</span>
-                            </div>
-                            <p class="text-sm text-gray-600 mt-1">em 10x R$ <span id="det-parcel"></span> sem juros</p>
-                        </div>
-                        <div class="flex flex-col gap-3 mt-8">
-                            <button onclick="buyNow()" class="w-full bg-blue-600 text-white py-4 rounded-xl font-bold hover:bg-blue-700 active:scale-95 transition-all shadow-lg shadow-blue-100">Comprar agora</button>
-                            <button id="det-add-cart" class="w-full bg-blue-50 text-blue-600 py-4 rounded-xl font-bold hover:bg-blue-100 active:scale-95 transition-all">Adicionar ao carrinho</button>
-                        </div>
-                    </div>
+        <section class="bg-[var(--soft)]">
+            <div class="mx-auto max-w-[760px] px-4 py-10 md:py-14">
+                <div class="story-accent pl-4">
+                    <h2 class="text-xl font-black">Para onde vai a sua doação</h2>
+                </div>
+                <p class="mt-5 text-sm leading-7 text-gray-700">
+                    Toda ajuda arrecadada é destinada <span class="highlight">diretamente</span> ao tratamento e ao cuidado diário dessas crianças.
+                </p>
+                <div class="mt-5 divide-y divide-gray-200 text-sm">
+                    <div class="py-4"><b>Medicamentos e insumos médicos</b><p class="mt-1 text-gray-600">Muitas crianças dependem de medicação diária e insumos que não são cobertos pelo SUS.</p></div>
+                    <div class="py-4"><b>Curativos especiais</b><p class="mt-1 text-gray-600">Crianças com condições de pele delicada precisam de troca de curativos várias vezes ao dia.</p></div>
+                    <div class="py-4"><b>Alimentação e nutrição</b><p class="mt-1 text-gray-600">Refeições preparadas diariamente com acompanhamento nutricional adequado.</p></div>
+                    <div class="py-4"><b>Consultas e exames</b><p class="mt-1 text-gray-600">Agendamentos regulares com especialistas e exames de acompanhamento.</p></div>
+                    <div class="py-4"><b>Estrutura e manutenção</b><p class="mt-1 text-gray-600">Manter o espaço funcionando com segurança, limpeza e dignidade.</p></div>
+                    <div class="py-4"><b>Higiene e cuidado diário</b><p class="mt-1 text-gray-600">Fraldas, produtos de higiene pessoal e itens de uso contínuo.</p></div>
                 </div>
             </div>
-            <div class="max-w-4xl p-10 border-t border-gray-100 bg-white mx-auto w-full">
-                <h2 class="text-2xl font-bold mb-8 text-gray-800">Descricao do Produto</h2>
-                <p id="det-description" class="text-gray-600 leading-relaxed text-lg whitespace-pre-line"></p>
-            </div>
-        </div>
-    </div>
+        </section>
 
-    <!-- SIDEBAR CARRINHO -->
-    <div id="cart-sidebar" class="fixed inset-0 z-[200] invisible">
-        <div class="backdrop absolute inset-0 bg-black/60 opacity-0 transition-opacity duration-400 pointer-events-none" onclick="toggleCart(false)"></div>
-        <div class="sidebar-content absolute right-0 top-0 h-full w-full max-md bg-white shadow-2xl flex flex-col">
-            <div class="p-6 border-b flex justify-between items-center bg-gray-50">
-                <h2 class="font-bold text-xl flex items-center gap-2"><i data-lucide="shopping-cart" class="text-blue-600"></i> Seu Carrinho</h2>
-                <button onclick="toggleCart(false)" class="p-2 hover:bg-gray-200 rounded-full transition-colors"><i data-lucide="x"></i></button>
+        <section>
+            <div class="mx-auto max-w-[760px] px-4 py-10 md:py-14">
+                <div class="story-accent pl-4">
+                    <h2 class="text-xl font-black">O poder da sua ajuda</h2>
+                </div>
+                <div class="mt-6 space-y-5 text-sm leading-8 text-gray-700">
+                    <p>Talvez você não saiba...</p>
+                    <p>Com o valor de um <span class="highlight">simples lanche</span>, você pode garantir o <span class="highlight">curativo de um dia inteiro</span> para uma criança.</p>
+                    <p>Com uma contribuição mensal menor que uma conta de celular, você pode <span class="highlight">literalmente salvar vidas</span> que hoje estão entre a vida e a morte.</p>
+                    <p>Sem o Cantinho das Borboletas, muitas dessas crianças <span class="highlight">já não estariam entre nós</span>.</p>
+                    <p>Mas com a sua ajuda, elas podem continuar lutando, sorrindo e acreditando que <span class="highlight">o amanhã existe</span>.</p>
+                </div>
             </div>
-            <div id="cart-items" class="flex-1 overflow-y-auto p-6 flex flex-col gap-6 scrollbar-hide"></div>
-            <div class="p-8 border-t bg-white shadow-[0_-10px_20px_rgba(0,0,0,0.05)]">
-                <div class="flex justify-between text-xl font-bold mb-6"><span>Total</span><span id="cart-total" class="text-blue-600">R$ 0,00</span></div>
-                <button onclick="openCheckout()" class="w-full bg-blue-600 text-white py-5 rounded-2xl font-bold hover:bg-blue-700 active:scale-95 transition-all shadow-xl shadow-blue-100">Finalizar Compra</button>
-            </div>
-        </div>
-    </div>
+        </section>
 
-    <!-- MODAL CHECKOUT -->
-    <div id="checkout-modal" class="fixed inset-0 z-[300] hidden flex items-start md:items-center justify-center p-2 md:p-4 overflow-y-auto">
-        <div class="absolute inset-0 bg-black/70 backdrop-blur-md" onclick="closeCheckout()"></div>
-        <div class="modal-container checkout-modal-scroll checkout-shell bg-white w-full max-w-4xl max-h-[calc(100dvh-1rem)] md:max-h-[calc(100dvh-2rem)] rounded-[2rem] shadow-2xl overflow-y-auto overflow-x-hidden relative z-[301]">
-            <div class="checkout-hero px-8 md:px-10 pt-8 pb-7 text-white">
-                <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
-                    <div>
-                        <p class="text-[11px] uppercase tracking-[0.3em] text-white/65 font-bold mb-3">Checkout seguro</p>
-                        <h2 class="text-3xl md:text-4xl font-black leading-tight">Produtos gratis, pague so o frete</h2>
-                        <p class="text-white/75 mt-3 max-w-2xl">Compra protegida, dados validados e confirmacao rapida direto pelo Mercado Livre.</p>
-                    </div>
-                    <div class="flex flex-wrap gap-2">
-                        <div id="step-pill-1" class="step-pill-active px-4 py-3 rounded-2xl flex items-center gap-3">
-                            <span class="w-7 h-7 rounded-full bg-white/15 flex items-center justify-center text-sm font-bold">1</span>
-                            <div><p class="text-[10px] uppercase tracking-[0.2em] opacity-70">Dados</p><p class="font-bold text-sm">Cliente</p></div>
-                        </div>
-                        <div id="step-pill-2" class="step-pill-idle px-4 py-3 rounded-2xl flex items-center gap-3">
-                            <span class="w-7 h-7 rounded-full bg-black/5 flex items-center justify-center text-sm font-bold">2</span>
-                            <div><p class="text-[10px] uppercase tracking-[0.2em] opacity-70">Pagamento</p><p class="font-bold text-sm">PIX</p></div>
-                        </div>
-                        <div id="step-pill-3" class="step-pill-idle px-4 py-3 rounded-2xl flex items-center gap-3">
-                            <span class="w-7 h-7 rounded-full bg-black/5 flex items-center justify-center text-sm font-bold">3</span>
-                            <div><p class="text-[10px] uppercase tracking-[0.2em] opacity-70">Status</p><p class="font-bold text-sm">Pedido</p></div>
-                        </div>
-                    </div>
+        <section class="bg-[var(--soft)]">
+            <div class="mx-auto max-w-[760px] px-4 py-10 md:py-14">
+                <div class="story-accent pl-4">
+                    <h2 class="text-xl font-black">Como tudo começou</h2>
+                </div>
+                <div class="mt-6 space-y-5 text-sm leading-8 text-gray-700">
+                    <p>O <span class="highlight">Cantinho das Borboletas</span> nasceu da necessidade de oferecer <span class="highlight">respostas rápidas e reais</span> a crianças em extrema vulnerabilidade.</p>
+                    <p>De pequenos gestos de acolhimento, evoluímos para uma operação constante, com médicos, voluntários e parceiros comprometidos.</p>
+                    <p>Trabalhamos com <span class="highlight">transparência total</span>, cuidado contínuo e responsabilidade em cada decisão tomada.</p>
                 </div>
             </div>
+        </section>
 
-            <!-- Passo 1: Dados do Comprador -->
-            <div id="check-step-1" class="p-8 md:p-10">
-                <div class="grid md:grid-cols-3 gap-3 mb-8">
-                    <div class="checkout-chip rounded-2xl px-4 py-4">
-                        <p class="text-[11px] uppercase tracking-[0.22em] text-gray-400 font-bold mb-1">Protecao</p>
-                        <p class="font-bold text-gray-900">Compra 100% segura</p>
-                    </div>
-                    <div class="checkout-chip rounded-2xl px-4 py-4">
-                        <p class="text-[11px] uppercase tracking-[0.22em] text-gray-400 font-bold mb-1">Envio</p>
-                        <p class="font-bold text-gray-900">Despacho prioritario</p>
-                    </div>
-                    <div class="checkout-chip rounded-2xl px-4 py-4">
-                        <p class="text-[11px] uppercase tracking-[0.22em] text-gray-400 font-bold mb-1">Pagamento</p>
-                        <p class="font-bold text-gray-900">PIX com aprovacao rapida</p>
-                    </div>
+        <section>
+            <div class="mx-auto max-w-[760px] px-4 py-10 md:py-14">
+                <div class="story-accent pl-4">
+                    <h2 class="text-xl font-black">Nossa essencia</h2>
                 </div>
-                <h2 class="text-2xl font-bold mb-8 flex items-center gap-3"><i data-lucide="user" class="text-blue-600"></i> Dados do Comprador</h2>
-                <div class="flex flex-col gap-5">
-                    <input type="text" id="cust-name" placeholder="Nome Completo" class="field-shell p-4 rounded-2xl outline-none transition-all text-base font-medium">
-                    <input type="text" id="cust-cpf" placeholder="CPF" class="field-shell p-4 rounded-2xl outline-none transition-all text-base font-medium" maxlength="14" oninput="formatCPF(this)">
-                    <input type="email" id="cust-email" placeholder="E-mail" class="field-shell p-4 rounded-2xl outline-none transition-all text-base font-medium">
-                    <div class="checkout-card rounded-[1.75rem] p-5 text-sm text-gray-600">
-                        <div class="flex items-center justify-between gap-4 mb-3">
-                            <p class="font-bold text-gray-900">Resumo do pedido</p>
-                            <p id="checkout-total-inline" class="text-lg font-black text-blue-600">R$ 0,00</p>
+                <div class="mt-6 space-y-5 text-sm leading-8 text-gray-700">
+                    <p><span class="highlight">MISSÃO</span></p>
+                    <p>Salvar vidas e devolver esperança, oferecendo lar, cuidados médicos e dignidade a crianças com doenças raras e dolorosas.</p>
+                    <p><span class="highlight">VISÃO</span></p>
+                    <p>Um país onde nenhuma criança sofra ou morra por falta de tratamento ou de um lar seguro.</p>
+                    <p><span class="highlight">VALORES</span></p>
+                    <p>Transparência total, dignidade e respeito, amor e responsabilidade em cuidado humano e constante.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="facts-bg px-4 py-14 text-center text-white md:py-20">
+            <div class="mx-auto max-w-4xl">
+                <div class="mx-auto mb-4 h-1 w-16 bg-yellow-300"></div>
+                <h2 class="text-3xl font-black md:text-4xl">Fatos e números da ONG</h2>
+                <p class="mx-auto mt-3 max-w-xl text-sm font-semibold text-white/90">
+                    Veja alguns indicadores do cuidado e da estrutura que mantêm nossos projetos em funcionamento.
+                </p>
+                <div class="mt-8 grid grid-cols-2 gap-5 md:grid-cols-4">
+                    <div><div class="mx-auto grid h-16 w-16 place-items-center rounded-full bg-white text-[var(--pink)]"><i data-lucide="baby" class="h-8 w-8"></i></div><p class="mt-3 text-4xl font-black text-black">155</p><p class="text-xs font-bold text-black">Assistidos pela ONG CB</p></div>
+                    <div><div class="mx-auto grid h-16 w-16 place-items-center rounded-full bg-white text-[var(--pink)]"><i data-lucide="hand-heart" class="h-8 w-8"></i></div><p class="mt-3 text-4xl font-black text-black">500</p><p class="text-xs font-bold text-black">Beneficiados indiretamente</p></div>
+                    <div><div class="mx-auto grid h-16 w-16 place-items-center rounded-full bg-white text-[var(--pink)]"><i data-lucide="hospital" class="h-8 w-8"></i></div><p class="mt-3 text-4xl font-black text-black">2</p><p class="text-xs font-bold text-black">Polos para atendimentos</p></div>
+                    <div><div class="mx-auto grid h-16 w-16 place-items-center rounded-full bg-white text-[var(--pink)]"><i data-lucide="user-round-check" class="h-8 w-8"></i></div><p class="mt-3 text-4xl font-black text-black">22</p><p class="text-xs font-bold text-black">Colaboradores</p></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="texture px-4 py-12 md:py-16">
+            <div class="mx-auto max-w-4xl text-center">
+                <p class="script text-2xl">Borboletas do nosso Cantinho</p>
+                <h2 class="mt-2 text-3xl font-black md:text-4xl">São + de 156 Assistidos</h2>
+                <p class="mt-3 text-sm text-gray-600">Torne-se um padrinho e contribua mensalmente para reduzir a dor de nossas crianças.</p>
+                <div id="assistidos-list" class="mt-8 flex gap-4 overflow-x-auto pb-4"></div>
+            </div>
+        </section>
+
+        <section class="mx-auto max-w-[760px] px-4 py-10 md:py-14">
+            <div class="story-accent pl-4">
+                <h2 class="text-xl font-black">Atualização da campanha</h2>
+            </div>
+            <div class="mt-6 space-y-5 text-sm leading-8 text-gray-700">
+                <p class="text-xs font-bold uppercase text-gray-500">14 de março de 2026</p>
+                <p>Essas são as faces da Epidermólise Bolhosa, crianças e adultos que enfrentam todos os dias a dor de uma pele que se rompe com o mínimo toque.</p>
+                <p>Graças a solidariedade de pessoas como você, conseguimos entregar curativos, medicamentos, suplementos e materiais essenciais para quem mais precisa.</p>
+                <p class="story-accent bg-[#fff7fb] py-4 pl-4 font-bold text-[var(--pink)]">Cada dia sem doação e um dia a mais de espera para uma criança que já esperou tempo demais.</p>
+                <p>Não existe valor pequeno. R$ 20 compra fraldas, R$ 50 paga curativos, R$ 100 garante uma consulta médica. O que para você é um café a menos no mês, para essas crianças é a diferença entre ter cuidado ou não ter.</p>
+            </div>
+        </section>
+    </main>
+
+    <div id="donation-modal" class="fixed inset-0 z-50 hidden bg-black/40">
+        <div class="flex min-h-full justify-end">
+            <aside class="modal-shell donation-panel relative overflow-y-auto p-2 shadow-2xl md:p-3">
+                <button onclick="closeDonation()" class="absolute right-3 top-3 rounded-full p-2 text-gray-600 hover:bg-gray-100" aria-label="Fechar doação">
+                    <i data-lucide="x" class="h-4 w-4"></i>
+                </button>
+
+                <div class="px-1 pb-8 pt-8">
+                    <h2 class="max-w-[320px] text-lg font-black leading-6">Cantinho das Borboletas - Acolhimento para crianças</h2>
+                    <p id="modal-raised-value" class="mt-5 text-xl font-black">R$ 0,00</p>
+                    <p id="modal-progress-label" class="mt-1 text-xs text-gray-500">arrecadados de R$ 300.000,00</p>
+                    <div class="mt-3 progress-bar"><div id="modal-progress-fill" class="progress-fill"></div></div>
+                    <p class="mt-2 text-[11px] text-gray-500"><span id="modal-percentage">45%</span> Completo</p>
+
+                    <form id="donation-form" class="mt-5">
+                        <label class="text-xs font-bold text-gray-700">Escolha o valor da sua contribuição:</label>
+                        <div id="amount-grid" class="mt-3 grid grid-cols-2 gap-2">
+                            <button type="button" class="amount-btn" data-value="20">R$ 20</button>
+                            <button type="button" class="amount-btn" data-value="30">R$ 30</button>
+                            <button type="button" class="amount-btn active" data-value="50">R$ 50</button>
+                            <button type="button" class="amount-btn" data-value="100">R$ 100</button>
+                            <button type="button" class="amount-btn" data-value="150">R$ 150</button>
+                            <button type="button" class="amount-btn" data-value="200">R$ 200</button>
+                            <button type="button" class="amount-btn" data-value="250">R$ 250</button>
+                            <button type="button" class="amount-btn" data-value="500">R$ 500</button>
+                            <button type="button" class="amount-btn col-span-2" data-value="1000">R$ 1.000</button>
                         </div>
-                        <div id="checkout-items-inline" class="space-y-2"></div>
-                    </div>
-                    <button onclick="validateCustomerStep()" class="bg-blue-600 text-white py-5 rounded-2xl font-bold mt-2 hover:bg-blue-700 active:scale-95 transition-all shadow-[0_16px_35px_rgba(52,131,250,0.28)]">
-                        Continuar para Entrega
-                    </button>
-                </div>
-            </div>
 
-            <!-- Passo 2: Dados de Entrega -->
-            <div id="check-step-delivery" class="p-8 md:p-10 hidden">
-                <h2 class="text-2xl font-bold mb-8 flex items-center gap-3"><i data-lucide="truck" class="text-blue-600"></i> Dados para Entrega</h2>
-                <div class="flex flex-col gap-4">
-                    <div class="grid grid-cols-2 gap-4">
-                        <input type="text" id="ship-cep" placeholder="CEP" class="field-shell p-4 rounded-2xl outline-none transition-all text-base font-medium" maxlength="9" oninput="formatCEP(this)">
-                        <input type="text" id="ship-country" placeholder="Pais" value="Brasil" class="border-2 border-gray-100 p-4 rounded-2xl outline-none focus:border-blue-400 transition-all">
-                    </div>
-                    <input type="text" id="ship-address" placeholder="Endereco (Rua/Avenida)" class="border-2 border-gray-100 p-4 rounded-2xl outline-none focus:border-blue-400 transition-all">
-                    <div class="grid grid-cols-3 gap-4">
-                        <input type="text" id="ship-number" placeholder="Numero da Casa" class="border-2 border-gray-100 p-4 rounded-2xl outline-none focus:border-blue-400 transition-all">
-                        <input type="text" id="ship-city" placeholder="Cidade" class="border-2 border-gray-100 p-4 rounded-2xl outline-none focus:border-blue-400 transition-all col-span-2">
-                    </div>
-                    <input type="text" id="ship-complement" placeholder="Complemento (Opcional)" class="border-2 border-gray-100 p-4 rounded-2xl outline-none focus:border-blue-400 transition-all">
-                    
-                    <button onclick="processIronPay()" id="pay-btn" class="bg-blue-600 text-white py-5 rounded-2xl font-bold mt-4 hover:bg-blue-700 active:scale-95 transition-all">
-                        Ir para pagamento do frete (R$ 49,90)
-                    </button>
-                    <button onclick="goToCheckStep(1)" class="text-gray-400 text-sm font-bold hover:text-gray-600 transition-all">Voltar</button>
-                </div>
-            </div>
+                        <label class="mt-4 block text-xs font-bold text-gray-700">Valor personalizado</label>
+                        <input id="custom-amount" class="field mt-2" inputmode="decimal" placeholder="R$ 50">
 
-            <!-- Passo 3: PIX -->
-            <div id="check-step-2" class="p-8 md:p-10 hidden text-center">
-                <h2 class="text-2xl font-bold mb-4 flex items-center justify-center gap-3"><i data-lucide="zap" class="text-blue-600"></i> Pague o frete com PIX</h2>
-                <p class="text-gray-500 mb-8">Aprovacao instantanea via Iron Pay!</p>
-                <div class="checkout-card p-6 rounded-[2rem] mb-6 inline-block min-w-[260px]">
-                    <img id="pix-qr-image" alt="QR Code PIX" class="hidden w-48 h-48 mx-auto object-contain rounded-2xl bg-white p-3">
-                    <div id="pix-qr-placeholder">
-                        <i data-lucide="qr-code" class="w-48 h-48 mx-auto text-gray-800"></i>
-                    </div>
-                </div>
-                
-                <div class="flex flex-col gap-3 mb-8">
-                    <p class="text-xs font-bold text-gray-400 uppercase">PIX Copia e Cola</p>
-                    <div class="flex gap-2 bg-gray-100 p-3 rounded-xl items-center border border-gray-200">
-                        <input type="text" readonly id="pix-code" value="Gerando codigo..." class="bg-transparent text-xs text-gray-500 flex-1 outline-none">
-                        <button onclick="copyPix()" class="bg-blue-600 text-white p-3 rounded-lg hover:bg-blue-700 transition-all" title="Copiar">
-                            <i data-lucide="copy" class="w-4 h-4"></i>
+                        <label class="mt-4 block text-xs font-bold text-gray-700">Seu nome</label>
+                        <input id="cust-name" class="field mt-2" autocomplete="name" placeholder="Digite seu nome">
+
+                        <div class="mt-3 flex items-center gap-2">
+                            <input id="anonymous" type="checkbox" class="h-4 w-4 accent-[var(--pink)]">
+                            <label for="anonymous" class="text-xs text-gray-700">Doar anonimamente</label>
+                        </div>
+
+                        <label class="mt-4 block text-xs font-bold text-gray-700">E-mail</label>
+                        <input id="cust-email" type="email" class="field mt-2" autocomplete="email" placeholder="Digite seu e-mail">
+
+                        <label class="mt-4 block text-xs font-bold text-gray-700">CPF</label>
+                        <input id="cust-cpf" class="field mt-2" inputmode="numeric" placeholder="Digite seu CPF" oninput="formatCPF(this)">
+
+                        <label class="mt-4 block text-xs font-bold text-gray-700">Mensagem (opcional)</label>
+                        <textarea id="support-message" class="field mt-2 min-h-[72px] resize-y" placeholder="Adicione uma mensagem de apoio"></textarea>
+
+                        <button id="pay-btn" type="submit" class="mt-5 flex w-full items-center justify-center gap-2 rounded-md bg-[var(--pink)] px-6 py-4 text-sm font-black text-white transition hover:bg-[var(--pink-dark)] disabled:cursor-not-allowed disabled:opacity-70">
+                            Quero Ajudar
+                            <i data-lucide="hand-heart" class="h-4 w-4"></i>
                         </button>
+                        <p class="mt-3 text-center text-[10px] text-gray-500">Pagamento seguro via PIX - Cantinho das Borboletas</p>
+                    </form>
+
+                    <div id="pix-panel" class="mt-5 hidden rounded-md border border-gray-200 bg-gray-50 p-3">
+                        <div id="pix-qr-placeholder" class="flex h-52 items-center justify-center rounded-md bg-white text-sm font-bold text-gray-400">QR Code PIX</div>
+                        <img id="pix-qr-image" class="mx-auto hidden h-52 w-52 object-contain" alt="QR Code PIX">
+                        <div class="mt-3 flex gap-2">
+                            <input id="pix-code" readonly class="min-w-0 flex-1 rounded-md border border-gray-200 bg-white px-3 py-3 text-xs text-gray-600">
+                            <button onclick="copyPix()" type="button" class="rounded-md bg-gray-900 px-4 py-3 text-white">
+                                <i data-lucide="copy" class="h-4 w-4"></i>
+                            </button>
+                        </div>
+                        <p id="copy-feedback" class="mt-2 hidden text-sm font-bold text-[var(--teal)]">Código PIX copiado.</p>
                     </div>
-                    <span id="copy-feedback" class="text-[10px] text-green-600 font-bold hidden">Copiado com sucesso!</span>
                 </div>
-
-                <div class="bg-blue-600 p-5 rounded-2xl font-bold text-white text-2xl mb-4 shadow-lg shadow-blue-200" id="check-total-display"></div>
-                <p class="text-sm text-gray-500 mb-8">Assim que o pagamento for feito, a confirmacao costuma acontecer em segundos.</p>
-                <button onclick="goToCheckStep(3)" class="w-full bg-green-600 text-white py-5 rounded-2xl font-bold hover:bg-green-700 active:scale-95 transition-all">Ja realizei o pagamento</button>
-            </div>
-
-            <!-- Passo 4: Sucesso -->
-            <div id="check-step-3" class="p-12 hidden text-center fade-in">
-                <div class="w-24 h-24 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <i data-lucide="check-circle" class="w-12 h-12 text-green-600"></i>
-                </div>
-                <h2 class="text-3xl font-bold mb-4 text-gray-800">Pedido Confirmado!</h2>
-                <p class="text-gray-500 mb-10">Obrigado por comprar conosco. Seu pedido ja esta sendo processado.</p>
-                <button onclick="closeCheckout()" class="bg-blue-600 text-white px-12 py-4 rounded-2xl font-bold hover:bg-blue-700 transition-all">Voltar a Loja</button>
-            </div>
+            </aside>
         </div>
     </div>
 
     <script>
-        // --- Banco de Dados ---
-        const FIXED_SHIPPING = 49.90;
-        const products = [
-            { id: 1, title: 'Samsung Smart TV 75" Crystal UHD 4K 2025', price: 0, oldPrice: 2199.99, image: "https://m.media-amazon.com/images/I/81QsB0GMcyL._AC_SX522_.jpg", description: "A nova era da TV chegou. Com processador Crystal 4K e Alexa integrada." },
-            { id: 2, title: 'Geladeira Electrolux Frost Free Inverter 480L', price: 0, oldPrice: 1980.00, image: "https://m.media-amazon.com/images/I/41qntZyTefL._AC_SX342_SY445_QL70_ML2_.jpg", description: "Tecnologia AutoSense que preserva alimentos por muito mais tempo." },
-            { id: 3, title: "Apple iPhone 15 (128 GB) - Preto", price: 0, oldPrice: 2099.00, image: "https://m.media-amazon.com/images/I/416MG51rNgL._AC_SX342_SY445_QL70_ML2_.jpg", description: "O iPhone 15 traz a Dynamic Island, c\u00E2mera de 48 MP e USB-C." },
-            { id: 4, title: "Philips Walita Airfryer XL Digital 6.2L", price: 0, oldPrice: 460.00, image: "https://m.media-amazon.com/images/I/51i3nkPbZ-L._AC_SX679_.jpg", description: "Cozinhe de forma saud\u00E1vel com at\u00E9 90% menos gordura." },
-            { id: 5, title: "Jogo de Panelas 13 Pe\u00E7as Antiaderente com Panela de Press\u00E3o", price: 0, oldPrice: 329.00, image: "https://m.media-amazon.com/images/I/61MUlJ3X-jL._AC_SX679_.jpg", description: "Conjunto completo antiaderente com 13 pe\u00E7as, incluindo panela de press\u00E3o, ideal para equipar sua cozinha." },
-            { id: 6, title: "SUGGAR FOG\u00C3O COOK GLASS PRETO MESA DE VIDRO 5 BOCAS MEGA CHAMA TREMPE 6 APOIOS ACENDIMENTO AUTOM\u00C1TICO FGVCG510PT", price: 0, oldPrice: 899.00, image: "https://m.media-amazon.com/images/I/51Llc-bUtRL._AC_SX522_.jpg", description: "Fog\u00E3o 5 bocas com mesa de vidro, mega chama, trempes com 6 apoios e acendimento autom\u00E1tico." },
-            { id: 7, title: "JBL, Caixa de Som, PartyBox Stage 520, Bluetooth, Port\u00E1til, Show de Luzes, At\u00E9 15 horas de reprodu\u00E7\u00E3o", price: 0, oldPrice: 1999.99, image: "https://m.media-amazon.com/images/I/61zm6pi9ziL._AC_SX679_.jpg", description: "Caixa de som Bluetooth port\u00E1til com show de luzes e at\u00E9 15 horas de reprodu\u00E7\u00E3o para animar qualquer ambiente." },
-            { id: 8, title: "Samsung Galaxy Book4 Intel Core i5-1335U, Windows 11 Home, 8GB, 512GB SSD, Iris Xe, 15.6'' Full HD LED, 1.55kg", price: 0, oldPrice: 2200.00, image: "https://m.media-amazon.com/images/I/51lGW2nP9qL._AC_SX522_.jpg", description: "Notebook leve com Intel Core i5, 8GB de RAM, SSD de 512GB e tela Full HD de 15,6 polegadas." }
+        const assistidos = [
+            { name: "FABRÍCIO MACHADO", image: "https://ongjardimdasborboletas.org/wp-content/uploads/2025/08/FABRICIO-MACHADO-COSTA-MG.webp", alt: "Fabrício Machado Costa" },
+            { name: "GEANYNE FERREIRA", image: "https://ongjardimdasborboletas.org/wp-content/uploads/2025/08/GEANYNE-FERREIRA-STUPP-SC.webp", alt: "Geanyne Ferreira Stupp" },
+            { name: "ISADORA MARIA", image: "https://ongjardimdasborboletas.org/wp-content/uploads/2025/08/Isadora-Maria-Lopes-da-Silva-DF.webp", alt: "Isadora Maria Lopes da Silva" },
+            { name: "FABIANE NASCIMENTO", image: "https://ongjardimdasborboletas.org/wp-content/uploads/2025/08/FABIANE-NASCIMENTO-RJ.webp", alt: "Fabiane Nascimento" },
+            { name: "FELIPE LORRAN", image: "https://ongjardimdasborboletas.org/wp-content/uploads/2025/08/Felipe-Lorran-Conceicao-de-Lima-AL.webp", alt: "Felipe Lorran Conceição de Lima" },
+            { name: "GUILHERME LIMA", image: "https://ongjardimdasborboletas.org/wp-content/uploads/2025/08/Guilherme-Lima-Craddock-RJ.webp", alt: "Guilherme Lima Craddock" },
+            { name: "ISAC MIGUEL", image: "https://ongjardimdasborboletas.org/wp-content/uploads/2025/08/ISAC-MIGUEL-DE-FRANCA-SP.webp", alt: "Isac Miguel de França" },
+            { name: "JANAINA RODRIGUES", image: "https://ongjardimdasborboletas.org/wp-content/uploads/2025/08/JANAINA-RODRIGUES-PEREIRA-RJ.webp", alt: "Janaina Rodrigues Pereira" },
+            { name: "JOÃO BATISTA", image: "https://ongjardimdasborboletas.org/wp-content/uploads/2025/08/JOAO-BATISTA-CORREIA-SOARES-CE.webp", alt: "João Batista Correia Soares" },
+            { name: "JOÃO PEDRO", image: "https://ongjardimdasborboletas.org/wp-content/uploads/2025/08/Joao-Pedro-Costa-dos-Santos-SP.webp", alt: "João Pedro Costa dos Santos" }
         ];
 
-        let cart = [];
-        let currentProdId = null;
+        function renderAssistidos() {
+            const list = document.getElementById("assistidos-list");
+            if (!list) return;
 
-        function init() {
-            const list = document.getElementById("products-list");
-            products.forEach((p) => {
-                list.innerHTML += `
-                    <div class="product-card bg-white rounded-2xl p-5 border border-gray-100 flex flex-col gap-3 min-w-[260px] cursor-pointer fade-in" onclick="openDetails(${p.id})">
-                        <div class="h-52 flex items-center justify-center overflow-hidden rounded-xl bg-gray-50">
-                            <img src="${p.image}" class="max-h-full object-contain p-2">
-                        </div>
-                        <div class="flex flex-col gap-1 flex-1">
-                            <h4 class="text-sm text-gray-700 line-clamp-2 h-10 font-medium leading-snug">${p.title}</h4>
-                            <div class="mt-2">
-                                <p class="text-sm text-gray-400">De <span class="line-through">R$ ${p.oldPrice.toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span></p>
-                                <p class="text-2xl font-bold text-gray-900">por R$ ${p.price.toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>
-                                <p class="text-[11px] text-green-600 font-bold">Produto gratis <span class="bg-green-600 text-white px-1 rounded-sm text-[9px] italic">FULL</span></p>
-                            </div>
-                        </div>
-                        <button onclick="event.stopPropagation(); addToCart(${p.id})" class="mt-2 w-full bg-blue-600 text-white py-3 rounded-xl text-xs font-bold hover:bg-blue-700 active:scale-95 transition-all">Adicionar</button>
-                    </div>
-                `;
-            });
-            hydrateCheckoutUI();
-            updateCheckoutSummary();
-            lucide.createIcons();
-        }
-
-        function showPage(pageId) {
-            const home = document.getElementById('page-home');
-            const details = document.getElementById('page-details');
-            window.scrollTo(0, 0);
-            if(pageId === 'home') { details.classList.add('hidden'); home.classList.remove('hidden'); document.body.style.overflow = 'auto'; }
-            else { home.classList.add('hidden'); details.classList.remove('hidden'); document.body.style.overflow = 'hidden'; }
-            lucide.createIcons();
-        }
-
-        function openDetails(id) {
-            const p = products.find(prod => prod.id === id);
-            currentProdId = id;
-            document.getElementById('det-title').innerText = p.title;
-            document.getElementById('det-price').innerText = `por R$ ${p.price.toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
-            document.getElementById('det-old-price').innerHTML = `De <span class="line-through">R$ ${p.oldPrice.toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>`;
-            document.getElementById('det-parcel').innerText = (FIXED_SHIPPING / 10).toLocaleString("pt-BR", {minimumFractionDigits: 2});
-            document.getElementById('det-main-image').src = p.image;
-            document.getElementById('det-img-1').src = p.image;
-            document.getElementById('det-description').innerText = p.description;
-            document.getElementById('det-add-cart').onclick = () => addToCart(id);
-            showPage('details');
-        }
-
-        function toggleCart(show) {
-            const sidebar = document.getElementById("cart-sidebar");
-            if(show) { sidebar.classList.remove("invisible"); sidebar.classList.add("active"); }
-            else { sidebar.classList.remove("active"); setTimeout(() => sidebar.classList.add("invisible"), 400); }
-        }
-
-        function addToCart(id) {
-            const p = products.find(prod => prod.id === id);
-            const inCart = cart.find(i => i.id === id);
-            if (inCart) inCart.qty++; else cart.push({ ...p, qty: 1 });
-            const btn = document.getElementById('cart-btn');
-            btn.classList.add('bump'); setTimeout(() => btn.classList.remove('bump'), 300);
-            updateCartUI();
-            toggleCart(true);
-        }
-
-        function updateCartUI() {
-            const container = document.getElementById("cart-items");
-            const countLabel = document.getElementById("cart-count");
-            const totalLabel = document.getElementById("cart-total");
-            container.innerHTML = cart.length === 0 ? '<div class="flex flex-col items-center justify-center h-64 text-gray-400 gap-4"><i data-lucide="shopping-bag" class="w-12 h-12 opacity-20"></i><p>Seu carrinho esta vazio</p></div>' : "";
-            let total = 0, count = 0;
-            cart.forEach((item) => {
-                total += item.price * item.qty;
-                count += item.qty;
-                container.innerHTML += `
-                    <div class="flex gap-4 border-b border-gray-50 pb-6 fade-in">
-                        <img src="${item.image}" class="w-20 h-20 object-contain rounded-xl p-2 border bg-gray-50">
-                        <div class="flex-1">
-                            <h3 class="text-sm font-bold line-clamp-1 text-gray-800">${item.title}</h3>
-                            <p class="text-lg font-bold text-blue-600 mt-1">R$ ${item.price.toLocaleString("pt-BR")}</p>
-                            <div class="flex items-center justify-between mt-3">
-                                <div class="flex items-center bg-gray-100 rounded-lg px-2">
-                                    <button onclick="updateQty(${item.id}, -1)" class="p-1 hover:text-blue-600"><i data-lucide="minus" class="w-3 h-3"></i></button>
-                                    <span class="px-4 text-sm font-bold">${item.qty}</span>
-                                    <button onclick="updateQty(${item.id}, 1)" class="p-1 hover:text-blue-600"><i data-lucide="plus" class="w-3 h-3"></i></button>
-                                </div>
-                                <button onclick="remove(${item.id})" class="text-[10px] font-bold text-red-400 hover:text-red-600 uppercase">Remover</button>
-                            </div>
+            list.innerHTML = assistidos.map((item) => {
+                const [first, ...rest] = item.name.split(" ");
+                return `
+                    <div class="assist-card">
+                        <img src="${item.image}" alt="${item.alt}" loading="lazy">
+                        <div class="p-3 text-white">
+                            <p class="script text-base">Borboleta</p>
+                            <b>${first}<br>${rest.join(" ")}</b>
                         </div>
                     </div>
                 `;
-            });
-            countLabel.innerText = count;
-            countLabel.classList.toggle("hidden", count === 0);
-            totalLabel.innerText = `R$ ${total.toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
-            document.getElementById("check-total-display").innerText = `FRETE FIXO: ${formatCurrency(FIXED_SHIPPING)}`;
-            updateCheckoutSummary();
-            lucide.createIcons();
+            }).join("");
+        }
+        const DEFAULT_STATS = { raised: 0, goal: 300000, percentage: 0 };
+        let selectedAmount = 50;
+
+        function formatCurrency(value) {
+            return Number(value || 0).toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
         }
 
-        function updateQty(id, delta) {
-            const item = cart.find(i => i.id === id);
-            item.qty = Math.max(1, item.qty + delta);
-            updateCartUI();
+        function parseMoney(value) {
+            const normalized = String(value || "")
+                .replace(/[^\d,.-]/g, "")
+                .replace(/\./g, "")
+                .replace(",", ".");
+            return Number(normalized);
         }
 
-        function remove(id) { cart = cart.filter(i => i.id !== id); updateCartUI(); }
+        function updateStatsUI(stats = DEFAULT_STATS) {
+            const raised = Number(stats.raised ?? DEFAULT_STATS.raised);
+            const goal = Number(stats.goal ?? DEFAULT_STATS.goal);
+            const percentage = goal > 0 ? Math.min(100, Math.round((raised / goal) * 100)) : 0;
 
-        function openCheckout() {
-            if(cart.length === 0) return;
-            toggleCart(false);
-            const modal = document.getElementById("checkout-modal");
-            hydrateCheckoutUI();
-            updateCheckoutSummary();
+            document.getElementById("raised-value").innerText = formatCurrency(raised);
+            document.getElementById("goal-value").innerText = `meta de ${formatCurrency(goal)}`;
+            document.getElementById("progress-label").innerText = `${percentage}% arrecadado`;
+            document.getElementById("progress-fill").style.width = `${percentage}%`;
+            document.getElementById("modal-raised-value").innerText = formatCurrency(raised);
+            document.getElementById("modal-progress-label").innerText = `arrecadados de ${formatCurrency(goal)}`;
+            document.getElementById("modal-percentage").innerText = `${percentage}%`;
+            document.getElementById("modal-progress-fill").style.width = `${percentage}%`;
+        }
+
+        async function loadDonationStats() {
+            try {
+                const response = await fetch("/api/payments/stats");
+                if (!response.ok) throw new Error("stats unavailable");
+                updateStatsUI(await response.json());
+            } catch (error) {
+                updateStatsUI(DEFAULT_STATS);
+            }
+        }
+
+        function openDonation() {
+            const modal = document.getElementById("donation-modal");
             modal.classList.remove("hidden");
-            document.body.style.overflow = 'hidden';
-            modal.scrollTop = 0;
-            const container = modal.querySelector('.modal-container');
-            if (container) container.scrollTop = 0;
-            setTimeout(() => modal.classList.add("modal-active"), 10);
-            goToCheckStep(1);
-        }
-
-        function closeCheckout() {
-            const modal = document.getElementById("checkout-modal");
-            modal.classList.remove("modal-active");
-            document.body.style.overflow = 'auto';
-            setTimeout(() => modal.classList.add("hidden"), 400);
-            showPage('home');
-        }
-
-        function goToCheckStep(step) {
-            const steps = ['check-step-1', 'check-step-delivery', 'check-step-2', 'check-step-3'];
-            steps.forEach(s => document.getElementById(s).classList.add('hidden'));
-            updateStepper(step);
-            
-            if(step === 'delivery') document.getElementById('check-step-delivery').classList.remove('hidden');
-            else if(step === 1) document.getElementById('check-step-1').classList.remove('hidden');
-            else if(step === 2) document.getElementById('check-step-2').classList.remove('hidden');
-            else if(step === 3) { document.getElementById('check-step-3').classList.remove('hidden'); cart = []; updateCartUI(); }
+            document.body.style.overflow = "hidden";
+            setTimeout(() => modal.classList.add("modal-active"), 20);
             lucide.createIcons();
+        }
+
+        function closeDonation() {
+            const modal = document.getElementById("donation-modal");
+            modal.classList.remove("modal-active");
+            document.body.style.overflow = "auto";
+            setTimeout(() => modal.classList.add("hidden"), 180);
         }
 
         function getFieldValue(id) {
             const field = document.getElementById(id);
-            return field ? field.value.trim() : '';
+            return field ? field.value.trim() : "";
         }
 
-        function hydrateCheckoutUI() {
-            const deliveryIds = ['ship-country', 'ship-address', 'ship-number', 'ship-city', 'ship-complement'];
-            deliveryIds.forEach((id) => {
-                const el = document.getElementById(id);
-                if (!el) return;
-                el.className = 'field-shell p-4 rounded-2xl outline-none transition-all text-base font-medium' + (id === 'ship-city' ? ' col-span-2' : '');
-            });
-
-            const modal = document.querySelector('#checkout-modal .modal-container');
-            if (modal) modal.classList.add('shadow-[0_40px_120px_rgba(15,23,42,0.22)]');
-
-            const pixCodeWrap = document.getElementById('pix-code')?.parentElement;
-            if (pixCodeWrap) pixCodeWrap.className = 'flex gap-2 bg-gray-100 p-3 rounded-2xl items-center border border-gray-200 shadow-inner';
-
-            const payBtn = document.getElementById('pay-btn');
-            if (payBtn) payBtn.innerText = `Ir para pagamento do frete (${formatCurrency(FIXED_SHIPPING)})`;
+        function getDonationAmount() {
+            const custom = parseMoney(getFieldValue("custom-amount"));
+            return Number.isFinite(custom) && custom > 0 ? custom : selectedAmount;
         }
 
-        function updateCheckoutSummary() {
-            const total = cart.reduce((acc, item) => acc + item.price * item.qty, 0);
-            const inlineList = document.getElementById('checkout-items-inline');
-            const inlineTotal = document.getElementById('checkout-total-inline');
-
-            if (inlineTotal) inlineTotal.innerText = formatCurrency(FIXED_SHIPPING);
-
-            if (inlineList) {
-                inlineList.innerHTML = cart.length
-                    ? `
-                        ${cart.map((item) => `
-                        <div class="flex items-center justify-between gap-3 py-2 border-b border-gray-100 last:border-b-0">
-                            <div class="min-w-0">
-                                <p class="font-semibold text-gray-900 text-sm line-clamp-1">${item.title}</p>
-                                <p class="text-xs text-gray-400">Qtd ${item.qty} - Produto gratis</p>
-                            </div>
-                            <p class="font-bold text-sm text-gray-900">${formatCurrency(0)}</p>
-                        </div>
-                    `).join('')}
-                        <div class="flex items-center justify-between gap-3 py-3 border-b border-gray-100">
-                            <div class="min-w-0">
-                                <p class="font-semibold text-gray-900 text-sm">Frete fixo</p>
-                                <p class="text-xs text-gray-400">Cobrado apos o preenchimento do envio</p>
-                            </div>
-                            <p class="font-bold text-sm text-blue-600">${formatCurrency(FIXED_SHIPPING)}</p>
-                        </div>
-                        <div class="flex items-center justify-between gap-3 pt-2">
-                            <div class="min-w-0">
-                                <p class="font-semibold text-gray-900 text-sm">Produtos</p>
-                                <p class="text-xs text-gray-400">Todos os itens com valor zerado</p>
-                            </div>
-                            <p class="font-bold text-sm text-gray-900">${formatCurrency(total)}</p>
-                        </div>
-                    `
-                    : '<p class="text-sm text-gray-400">Seu carrinho sera exibido aqui.</p>';
-            }
-
-            const totalDisplay = document.getElementById('check-total-display');
-            if (totalDisplay) totalDisplay.innerText = `FRETE FIXO: ${formatCurrency(FIXED_SHIPPING)}`;
-        }
-
-        function updateStepper(step) {
-            const normalized = step === 'delivery' ? 1 : step;
-            [1, 2, 3].forEach((index) => {
-                const pill = document.getElementById(`step-pill-${index}`);
-                if (!pill) return;
-                pill.classList.remove('step-pill-active', 'step-pill-idle', 'step-pill-done');
-                if (index === normalized) pill.classList.add('step-pill-active');
-                else if (index < normalized) pill.classList.add('step-pill-done');
-                else pill.classList.add('step-pill-idle');
-            });
-        }
-
-        function validateCustomerStep() {
+        async function processDonation() {
+            const btn = document.getElementById("pay-btn");
+            const amount = getDonationAmount();
+            const anonymous = document.getElementById("anonymous").checked;
+            const name = anonymous ? "Doador anônimo" : getFieldValue("cust-name");
+            const email = getFieldValue("cust-email");
+            const cpf = getFieldValue("cust-cpf");
+            const message = getFieldValue("support-message");
             const missingFields = [];
 
-            if (!getFieldValue('cust-name')) missingFields.push('nome');
-            if (!getFieldValue('cust-cpf')) missingFields.push('CPF');
-            if (!getFieldValue('cust-email')) missingFields.push('e-mail');
+            if (!name) missingFields.push("nome");
+            if (!email) missingFields.push("e-mail");
+            if (!cpf) missingFields.push("CPF");
+            if (!Number.isFinite(amount) || amount <= 0) missingFields.push("valor da doação");
 
             if (missingFields.length) {
-                alert(`Preencha: ${missingFields.join(', ')}`);
+                alert(`Preencha: ${missingFields.join(", ")}`);
                 return;
             }
 
-            goToCheckStep('delivery');
-        }
-
-        async function processIronPay() {
-            const btn = document.getElementById('pay-btn');
-            const name = getFieldValue('cust-name');
-            const cpf = getFieldValue('cust-cpf');
-            const email = getFieldValue('cust-email');
-            
-            const cep = getFieldValue('ship-cep');
-            const address = getFieldValue('ship-address');
-            const number = getFieldValue('ship-number');
-            const city = getFieldValue('ship-city');
-            const complement = getFieldValue('ship-complement');
-            const missingFields = [];
-
-            if (!name) missingFields.push('nome');
-            if (!cpf) missingFields.push('CPF');
-            if (!email) missingFields.push('e-mail');
-            if (!cep) missingFields.push('CEP');
-            if (!address) missingFields.push('endereco');
-            if (!number) missingFields.push('numero');
-            if (!city) missingFields.push('cidade');
-
-            if (missingFields.length) return alert(`Preencha: ${missingFields.join(', ')}`);
-
-            if(!name || !cpf || !email || !cep || !address || !number || !city) return alert('Preencha todos os campos obrigatorios!');
-
             btn.disabled = true;
-            btn.innerHTML = '<i data-lucide="loader-2" class="animate-spin w-5 h-5"></i> Gerando PIX do frete...';
+            btn.innerHTML = '<i data-lucide="loader-2" class="h-5 w-5 animate-spin"></i> Gerando PIX...';
             lucide.createIcons();
 
             try {
-                // Chamada para o SEU servidor (Seguro)
-                const response = await fetch('/api/payments/checkout', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ 
-                        items: cart, 
+                const response = await fetch("/api/payments/checkout", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        items: [{ id: 1, title: "Doação Cantinho das Borboletas", price: amount, qty: 1, message }],
                         customer: { name, cpf, email },
-                        delivery: { cep, address, number, city, complement }
+                        delivery: { cep: "00000-000", address: "Doação online", number: "0", city: "Online", complement: message }
                     })
                 });
 
                 const data = await response.json();
+                if (!response.ok) throw new Error(data.error || "Falha ao gerar pagamento");
 
-                if (!response.ok) {
-                    throw new Error(data.error || 'Falha ao gerar pagamento');
-                }
+                const pixCode = data.pix_code || data.pix_qr_code || data.transaction_hash;
+                if (!pixCode) throw new Error("A IronPay não retornou um código PIX válido.");
 
-                if(data.pix_code || data.pix_qr_code) {
-                    const pixCode = data.pix_code || data.pix_qr_code;
-                    document.getElementById('pix-code').value = pixCode;
-                    renderPixQr(data.pix_base64, pixCode);
-                    goToCheckStep(2);
-                } else if (data.transaction_hash) {
-                    const pixCode = "PIX_HASH_" + data.transaction_hash;
-                    document.getElementById('pix-code').value = pixCode;
-                    renderPixQr(null, pixCode);
-                    goToCheckStep(2);
-                } else {
-                    throw new Error('A IronPay nao retornou um codigo PIX valido.');
-                }
-            } catch (e) {
-                console.error(e);
-                alert('Erro de conexao com o servidor.');
+                document.getElementById("pix-code").value = pixCode;
+                renderPixQr(data.pix_base64, pixCode);
+                document.getElementById("pix-panel").classList.remove("hidden");
+                if (data.stats) updateStatsUI(data.stats);
+            } catch (error) {
+                console.error(error);
+                alert("Erro ao gerar PIX. Verifique os dados e tente novamente.");
             } finally {
                 btn.disabled = false;
-                btn.innerText = `Ir para pagamento do frete (${formatCurrency(FIXED_SHIPPING)})`;
+                btn.innerHTML = 'Quero Ajudar <i data-lucide="hand-heart" class="h-4 w-4"></i>';
                 lucide.createIcons();
             }
         }
 
-        function formatCurrency(value) {
-            return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-        }
-
         function formatCPF(input) {
-            let value = input.value.replace(/\D/g, '').slice(0, 11);
-            value = value.replace(/(\d{3})(\d)/, '$1.$2');
-            value = value.replace(/(\d{3})(\d)/, '$1.$2');
-            value = value.replace(/(\d{3})(\d{1,2})$/, '$1-$2');
-            input.value = value;
-        }
-
-        function formatCEP(input) {
-            let value = input.value.replace(/\D/g, '').slice(0, 8);
-            value = value.replace(/(\d{5})(\d)/, '$1-$2');
+            let value = input.value.replace(/\D/g, "").slice(0, 11);
+            value = value.replace(/(\d{3})(\d)/, "$1.$2");
+            value = value.replace(/(\d{3})(\d)/, "$1.$2");
+            value = value.replace(/(\d{3})(\d{1,2})$/, "$1-$2");
             input.value = value;
         }
 
         function renderPixQr(base64Qr, pixCode) {
-            const image = document.getElementById('pix-qr-image');
-            const placeholder = document.getElementById('pix-qr-placeholder');
-
-            if (!image || !placeholder) return;
+            const image = document.getElementById("pix-qr-image");
+            const placeholder = document.getElementById("pix-qr-placeholder");
 
             image.src = base64Qr
-                ? (base64Qr.startsWith('data:image') ? base64Qr : `data:image/png;base64,${base64Qr}`)
+                ? (base64Qr.startsWith("data:image") ? base64Qr : `data:image/png;base64,${base64Qr}`)
                 : `https://quickchart.io/qr?size=320&text=${encodeURIComponent(pixCode)}`;
 
-            image.classList.remove('hidden');
-            placeholder.classList.add('hidden');
+            image.classList.remove("hidden");
+            placeholder.classList.add("hidden");
         }
 
         function copyPix() {
-            const input = document.getElementById('pix-code');
+            const input = document.getElementById("pix-code");
             input.select();
             navigator.clipboard.writeText(input.value);
-            const feedback = document.getElementById('copy-feedback');
-            feedback.classList.remove('hidden');
-            setTimeout(() => feedback.classList.add('hidden'), 2000);
+            const feedback = document.getElementById("copy-feedback");
+            feedback.classList.remove("hidden");
+            setTimeout(() => feedback.classList.add("hidden"), 2000);
         }
 
-        function buyNow() { addToCart(currentProdId); openCheckout(); }
+        document.querySelectorAll(".amount-btn").forEach((button) => {
+            button.addEventListener("click", () => {
+                selectedAmount = Number(button.dataset.value);
+                document.querySelectorAll(".amount-btn").forEach((item) => item.classList.remove("active"));
+                button.classList.add("active");
+                document.getElementById("custom-amount").value = "";
+            });
+        });
 
-        init();
+        document.getElementById("custom-amount").addEventListener("input", () => {
+            document.querySelectorAll(".amount-btn").forEach((item) => item.classList.remove("active"));
+        });
+
+        document.getElementById("donation-form").addEventListener("submit", (event) => {
+            event.preventDefault();
+            processDonation();
+        });
+
+        renderAssistidos();
+        loadDonationStats();
+        lucide.createIcons();
     </script>
 </body>
 </html>
-
-
-
-

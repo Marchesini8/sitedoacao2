@@ -1,20 +1,26 @@
-{
-  "name": "site-ml",
-  "version": "1.0.0",
-  "description": "",
-  "main": "server.js",
-  "scripts": {
-    "start": "node server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
-  "dependencies": {
-    "axios": "^1.14.0",
-    "cors": "^2.8.5",
-    "dotenv": "^17.2.3",
-    "express": "^5.1.0"
-  }
+﻿{
+    "name":  "sitedoacao",
+    "version":  "1.0.0",
+    "description":  "Site de doacoes com checkout PIX",
+    "main":  "server.js",
+    "scripts":  {
+                    "start":  "node server.js",
+                    "test":  "echo \"Error: no test specified\" \u0026\u0026 exit 1"
+                },
+    "keywords":  [
+
+                 ],
+    "author":  "",
+    "license":  "ISC",
+    "type":  "commonjs",
+    "dependencies":  {
+                         "axios":  "^1.14.0",
+                         "cors":  "^2.8.5",
+                         "dotenv":  "^17.2.3",
+                         "express":  "^5.1.0"
+                     },
+    "engines":  {
+                    "node":  "\u003e=18.18.0",
+                    "npm":  "\u003e=9.0.0"
+                }
 }
