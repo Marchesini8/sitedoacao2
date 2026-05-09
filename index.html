@@ -3,21 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cantinho das Borboletas - Doações</title>
+    <title>Instituição Leão de Judá - Doações</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Pacifico&display=swap");
+        @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap");
 
         :root {
-            --pink: #e72582;
-            --pink-dark: #c91569;
-            --teal: #13b8ad;
-            --ink: #101828;
-            --soft: #f7f7f7;
+            --blue: #003f92;
+            --blue-dark: #002f70;
+            --blue-soft: #eef5ff;
+            --orange: #ff9f00;
+            --ink: #0b1b33;
+            --muted: #63708a;
+            --line: #d8e3f3;
+            --soft: #f4f7fb;
+            --green: #0f9f55;
+            --red: #e03131;
         }
 
         * { box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
 
         body {
             margin: 0;
@@ -25,88 +32,456 @@
             color: var(--ink);
             background: #fff;
             overflow-x: hidden;
-            scroll-behavior: smooth;
         }
 
-        .brand-mark {
-            width: 34px;
-            height: 34px;
+        .page-shell {
+            width: 100%;
+            max-width: 1140px;
+            margin: 0 auto;
+            background: #fff;
+            box-shadow: 0 0 0 1px rgba(15, 35, 70, 0.04);
+        }
+
+        .content {
+            width: calc(100% - 32px);
+            max-width: 720px;
+            margin: 0 auto;
+        }
+
+        .wide-content {
+            width: calc(100% - 32px);
+            max-width: 940px;
+            margin: 0 auto;
+        }
+
+        .logo-mark {
             display: grid;
+            width: 82px;
+            height: 82px;
             place-items: center;
+            border-radius: 999px;
+            border: 3px solid var(--blue);
+            color: var(--blue);
+            line-height: 1;
+            text-align: center;
+            box-shadow: inset 0 0 0 6px #fff, 0 8px 22px rgba(0, 63, 146, 0.1);
+        }
+
+        .logo-mark b {
+            display: block;
+            font-size: 28px;
+            letter-spacing: 0;
+        }
+
+        .logo-mark span {
+            display: block;
+            margin-top: 3px;
+            font-size: 9px;
+            font-weight: 900;
+            text-transform: uppercase;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            min-height: 44px;
             border-radius: 8px;
-            background: var(--pink);
+            background: var(--blue);
+            padding: 0 22px;
             color: #fff;
+            font-size: 12px;
+            font-weight: 900;
+            text-transform: uppercase;
+            box-shadow: 0 12px 24px rgba(0, 63, 146, 0.22);
+            transition: transform 160ms ease, background 160ms ease, box-shadow 160ms ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            background: var(--blue-dark);
+            box-shadow: 0 16px 28px rgba(0, 63, 146, 0.28);
+        }
+
+        .hero-card {
+            border: 2px solid var(--blue);
+            border-radius: 16px;
+            padding: 36px;
+            text-align: center;
+            box-shadow: 0 22px 50px rgba(31, 52, 92, 0.08);
+        }
+
+        .hero-media {
+            position: relative;
+            overflow: hidden;
+            border-radius: 14px;
+            aspect-ratio: 16 / 9;
+            background: var(--soft);
+        }
+
+        .hero-media img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hero-media::after {
+            position: absolute;
+            inset: auto 0 0;
+            height: 38%;
+            content: "";
+            background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.58));
+        }
+
+        .hero-media-label {
+            position: absolute;
+            left: 26px;
+            bottom: 26px;
+            z-index: 1;
+            color: #fff;
+            font-size: clamp(24px, 4vw, 42px);
+            font-weight: 900;
+            text-transform: uppercase;
+        }
+
+        .hero-media-label span { color: var(--orange); }
+
+        .avatar-stack {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex: 0 0 auto;
+        }
+
+        .avatar {
+            display: grid;
+            width: 32px;
+            height: 32px;
+            place-items: center;
+            margin-left: -7px;
+            border: 2px solid #fff;
+            border-radius: 999px;
+            background: var(--blue);
+            color: #fff;
+            font-size: 12px;
             font-weight: 900;
         }
 
-        .hero-bg {
-            background-image:
-                linear-gradient(180deg, rgba(255,255,255,0.04) 0%, rgba(16,24,40,0.05) 45%, rgba(16,24,40,0.72) 100%),
-                url("https://ongjardimdasborboletas.org/wp-content/uploads/2022/07/iMG-BG-abarce-uma-borboleta-1024x771.png");
-            background-position: center center;
-            background-size: cover;
+        .avatar:first-child { margin-left: 0; }
+        .avatar.alt { background: var(--orange); }
+
+        .progress-card {
+            border-radius: 14px;
+            background: var(--soft);
+            padding: 22px;
         }
 
         .progress-bar {
-            height: 9px;
+            height: 12px;
             overflow: hidden;
             border-radius: 999px;
-            background: #eceff3;
+            background: #cbdcf4;
         }
 
         .progress-fill {
             width: 0%;
             height: 100%;
             border-radius: inherit;
-            background: var(--pink);
+            background: var(--blue);
             transition: width 450ms ease;
         }
 
-        .story-accent { border-left: 4px solid var(--pink); }
-
-        .highlight {
-            color: var(--pink);
-            background: #fff0f7;
-            border-radius: 6px;
-            padding: 2px 6px;
+        .verified-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            border-radius: 999px;
+            background: var(--blue);
+            padding: 8px 12px;
+            color: #fff;
+            font-size: 12px;
             font-weight: 900;
         }
 
-        .facts-bg {
-            background-image:
-                linear-gradient(180deg, rgba(231,37,130,0.94), rgba(231,37,130,0.78) 62%, rgba(255,255,255,0.82)),
-                url("https://images.unsplash.com/photo-1584516150909-c43483ee7932?auto=format&fit=crop&w=2200&q=80");
-            background-position: center;
-            background-size: cover;
+        .needs-section,
+        .faq-section {
+            background: var(--soft);
         }
 
-        .texture {
-            background-color: #fff;
-            background-image:
-                radial-gradient(#e7edf2 0.8px, transparent 0.8px),
-                radial-gradient(#f3f5f7 0.8px, transparent 0.8px);
-            background-size: 18px 18px;
-            background-position: 0 0, 9px 9px;
+        .need-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            min-height: 84px;
+            border: 1px solid #bfd0e8;
+            border-radius: 14px;
+            background: #fff;
+            padding: 18px 22px;
+            font-size: 20px;
+            font-weight: 900;
         }
 
-        .assist-card {
-            min-width: 130px;
+        .need-card strong {
+            color: var(--orange);
+            white-space: nowrap;
+        }
+
+        .total-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 18px;
+            border-radius: 14px;
+            background: var(--blue);
+            padding: 24px 26px;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 900;
+        }
+
+        .total-card strong {
+            color: var(--orange);
+            font-size: 22px;
+        }
+
+        .mission-box {
+            background: linear-gradient(90deg, #fff8ea, #ffe5a9);
+            padding: 56px 24px;
+            text-align: center;
+        }
+
+        .alert-box {
+            margin: 24px auto 0;
+            max-width: 560px;
+            border: 1px solid #ff8383;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.72);
+            padding: 18px 22px;
+            color: #d51b1b;
+            text-align: left;
+            line-height: 1.7;
+        }
+
+        .area-card {
             overflow: hidden;
             border-radius: 8px;
-            background: #161616;
-            box-shadow: 0 16px 35px rgba(16, 24, 40, 0.14);
+            background: #fff;
+            box-shadow: 0 14px 28px rgba(15, 35, 70, 0.12);
         }
 
-        .assist-card img {
-            height: 150px;
+        .area-card img {
             width: 100%;
+            height: 138px;
             object-fit: cover;
         }
 
-        .script {
-            font-family: "Pacifico", cursive;
-            color: var(--pink);
+        .use-card {
+            border-radius: 10px;
+            background: var(--soft);
+            padding: 18px 14px;
+            text-align: center;
         }
+
+        .comparison-card {
+            border-radius: 10px;
+            padding: 22px;
+            line-height: 1.7;
+        }
+
+        .comparison-card li {
+            display: flex;
+            gap: 10px;
+            border-top: 1px solid rgba(0, 0, 0, 0.08);
+            padding: 13px 0;
+        }
+
+        .comparison-card li:first-child { border-top: 0; }
+
+        .faq-item {
+            border: 1px solid var(--line);
+            border-radius: 10px;
+            background: #fff;
+        }
+
+        .faq-item summary {
+            display: flex;
+            min-height: 58px;
+            cursor: pointer;
+            list-style: none;
+            align-items: center;
+            justify-content: space-between;
+            gap: 18px;
+            padding: 0 18px;
+            color: var(--blue);
+            font-size: 13px;
+            font-weight: 900;
+        }
+
+        .faq-item summary::-webkit-details-marker { display: none; }
+
+        .faq-item p {
+            border-top: 1px solid var(--line);
+            padding: 16px 18px 18px;
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        .map-card {
+            overflow: hidden;
+            border-radius: 10px;
+            background: #fff;
+            box-shadow: 0 20px 42px rgba(15, 35, 70, 0.13);
+        }
+
+        .map-card iframe {
+            display: block;
+            width: 100%;
+            height: 260px;
+            border: 0;
+        }
+
+        .footer {
+            background: var(--blue);
+            color: #dce9ff;
+        }
+
+        .hidden { display: none !important; }
+        .block { display: block; }
+        .inline-flex { display: inline-flex; }
+        .flex { display: flex; }
+        .grid { display: grid; }
+        .items-center { align-items: center; }
+        .items-start { align-items: flex-start; }
+        .justify-center { justify-content: center; }
+        .justify-between { justify-content: space-between; }
+        .flex-wrap { flex-wrap: wrap; }
+        .flex-1 { flex: 1 1 0%; }
+        .min-w-0 { min-width: 0; }
+        .mx-auto { margin-left: auto; margin-right: auto; }
+        .mt-1 { margin-top: 4px; }
+        .mt-2 { margin-top: 8px; }
+        .mt-3 { margin-top: 12px; }
+        .mt-4 { margin-top: 16px; }
+        .mt-5 { margin-top: 20px; }
+        .mt-6 { margin-top: 24px; }
+        .mt-7 { margin-top: 28px; }
+        .mt-8 { margin-top: 32px; }
+        .mt-10 { margin-top: 40px; }
+        .mt-12 { margin-top: 48px; }
+        .mb-3 { margin-bottom: 12px; }
+        .gap-1 { gap: 4px; }
+        .gap-2 { gap: 8px; }
+        .gap-3 { gap: 12px; }
+        .gap-4 { gap: 16px; }
+        .gap-5 { gap: 20px; }
+        .space-y-4 > * + * { margin-top: 16px; }
+        .space-y-5 > * + * { margin-top: 20px; }
+        .w-full { width: 100%; }
+        .h-2 { height: 8px; }
+        .w-2 { width: 8px; }
+        .h-4 { height: 16px; }
+        .w-4 { width: 16px; }
+        .h-5 { height: 20px; }
+        .w-5 { width: 20px; }
+        .h-52 { height: 208px; }
+        .w-52 { width: 208px; }
+        .h-\[260px\] { height: 260px; }
+        .min-h-\[72px\] { min-height: 72px; }
+        .min-h-\[100dvh\] { min-height: 100dvh; }
+        .max-w-\[320px\] { max-width: 320px; }
+        .max-w-\[520px\] { max-width: 520px; }
+        .max-w-\[560px\] { max-width: 560px; }
+        .max-w-\[620px\] { max-width: 620px; }
+        .max-w-\[860px\] { max-width: 860px; }
+        .rounded-full { border-radius: 999px; }
+        .rounded-md { border-radius: 8px; }
+        .rounded-2xl { border-radius: 16px; }
+        .border { border-width: 1px; border-style: solid; }
+        .border-b { border-bottom: 1px solid; }
+        .border-t { border-top: 1px solid; }
+        .border-gray-100 { border-color: #f3f4f6; }
+        .border-gray-200 { border-color: #e5e7eb; }
+        .border-red-200 { border-color: #fecaca; }
+        .border-green-200 { border-color: #bbf7d0; }
+        .bg-white { background: #fff; }
+        .bg-black\/40 { background: rgba(0, 0, 0, 0.4); }
+        .bg-red-50 { background: #fef2f2; }
+        .bg-green-50 { background: #f0fdf4; }
+        .bg-gray-50 { background: #f9fafb; }
+        .bg-gray-900 { background: #111827; }
+        .bg-\[var\(--blue\)\] { background: var(--blue); }
+        .bg-\[var\(--soft\)\] { background: var(--soft); }
+        .text-center { text-align: center; }
+        .text-left { text-align: left; }
+        .text-white { color: #fff; }
+        .text-gray-400 { color: #9ca3af; }
+        .text-gray-500 { color: #6b7280; }
+        .text-gray-600 { color: #4b5563; }
+        .text-gray-700 { color: #374151; }
+        .text-red-700 { color: #b91c1c; }
+        .text-green-800 { color: #166534; }
+        .text-\[var\(--blue\)\] { color: var(--blue); }
+        .text-\[var\(--orange\)\] { color: var(--orange); }
+        .text-\[var\(--muted\)\] { color: var(--muted); }
+        .text-\[var\(--green\)\] { color: var(--green); }
+        .text-\[10px\] { font-size: 10px; }
+        .text-\[11px\] { font-size: 11px; }
+        .text-xs { font-size: 12px; }
+        .text-sm { font-size: 14px; }
+        .text-base { font-size: 16px; }
+        .text-lg { font-size: 18px; }
+        .text-xl { font-size: 20px; }
+        .text-2xl { font-size: 24px; }
+        .text-3xl { font-size: 30px; }
+        .font-bold { font-weight: 700; }
+        .font-black { font-weight: 900; }
+        .uppercase { text-transform: uppercase; }
+        .leading-6 { line-height: 1.5rem; }
+        .leading-7 { line-height: 1.75rem; }
+        .leading-8 { line-height: 2rem; }
+        .leading-tight { line-height: 1.15; }
+        .tracking-\[0\.18em\] { letter-spacing: 0.18em; }
+        .p-2 { padding: 8px; }
+        .p-3 { padding: 12px; }
+        .p-4 { padding: 16px; }
+        .px-1 { padding-left: 4px; padding-right: 4px; }
+        .px-3 { padding-left: 12px; padding-right: 12px; }
+        .px-4 { padding-left: 16px; padding-right: 16px; }
+        .px-5 { padding-left: 20px; padding-right: 20px; }
+        .px-6 { padding-left: 24px; padding-right: 24px; }
+        .py-3 { padding-top: 12px; padding-bottom: 12px; }
+        .py-4 { padding-top: 16px; padding-bottom: 16px; }
+        .py-6 { padding-top: 24px; padding-bottom: 24px; }
+        .py-7 { padding-top: 28px; padding-bottom: 28px; }
+        .py-10 { padding-top: 40px; padding-bottom: 40px; }
+        .py-14 { padding-top: 56px; padding-bottom: 56px; }
+        .pb-8 { padding-bottom: 32px; }
+        .pt-8 { padding-top: 32px; }
+        .fixed { position: fixed; }
+        .relative { position: relative; }
+        .absolute { position: absolute; }
+        .inset-0 { inset: 0; }
+        .right-3 { right: 12px; }
+        .top-3 { top: 12px; }
+        .z-50 { z-index: 50; }
+        .overflow-hidden { overflow: hidden; }
+        .overflow-y-auto { overflow-y: auto; }
+        .overscroll-contain { overscroll-behavior: contain; }
+        .object-cover { object-fit: cover; }
+        .object-contain { object-fit: contain; }
+        .resize-y { resize: vertical; }
+        .shadow-2xl { box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25); }
+        .transition { transition: 160ms ease; }
+        .hover\:bg-\[var\(--blue-dark\)\]:hover { background: var(--blue-dark); }
+        .hover\:bg-gray-100:hover { background: #f3f4f6; }
+        .disabled\:cursor-not-allowed:disabled { cursor: not-allowed; }
+        .disabled\:opacity-70:disabled { opacity: 0.7; }
+        .col-span-2 { grid-column: span 2 / span 2; }
+        .grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 
         .modal-shell {
             transform: translateX(20px);
@@ -130,8 +505,8 @@
         }
 
         .field:focus {
-            border-color: var(--pink);
-            box-shadow: 0 0 0 4px rgba(231, 37, 130, 0.12);
+            border-color: var(--blue);
+            box-shadow: 0 0 0 4px rgba(0, 63, 146, 0.12);
         }
 
         .amount-btn {
@@ -146,8 +521,8 @@
 
         .amount-btn.active,
         .amount-btn:hover {
-            border-color: var(--pink);
-            background: var(--pink);
+            border-color: var(--blue);
+            background: var(--blue);
             color: #fff;
         }
 
@@ -161,306 +536,279 @@
             background: #fff;
         }
 
-
-        .update-gallery {
-            position: relative;
-            overflow: hidden;
-            border-radius: 8px;
-            border: 1px solid #e4e7ec;
-            background: #f8f9fb;
-        }
-
-        .update-gallery-track {
-            display: flex;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
-            scrollbar-width: none;
-        }
-
-        .update-gallery-track::-webkit-scrollbar { display: none; }
-
-        .update-gallery img {
-            width: 100%;
-            min-width: 100%;
-            max-height: 560px;
-            object-fit: cover;
-            scroll-snap-align: start;
-        }
-
-        .gallery-arrow {
-            position: absolute;
-            top: 50%;
-            display: grid;
-            width: 34px;
-            height: 34px;
-            place-items: center;
-            border-radius: 999px;
-            background: rgba(255, 255, 255, 0.92);
-            color: var(--pink);
-            box-shadow: 0 10px 24px rgba(16, 24, 40, 0.16);
-            transform: translateY(-50%);
-        }
-
-        .gallery-arrow.prev { left: 10px; }
-        .gallery-arrow.next { right: 10px; }
-
-        .donor-row {
-            display: grid;
-            grid-template-columns: 1fr auto;
-            gap: 14px;
-            border-bottom: 1px solid #e4e7ec;
-            padding: 18px 0;
-        }
-
-        .donor-row:last-child { border-bottom: 0; }
-        @media (max-width: 768px) {
-            .hero-bg {
-                min-height: 360px;
-                background-position: center center;
-            }
-
+        @media (max-width: 760px) {
+            .page-shell { box-shadow: none; }
+            .logo-mark { width: 66px; height: 66px; }
+            .logo-mark b { font-size: 22px; }
+            .hero-card { padding: 24px 18px; border-radius: 12px; }
+            .hero-media-label { left: 16px; bottom: 16px; }
+            .need-card { align-items: flex-start; flex-direction: column; font-size: 18px; }
+            .total-card { align-items: flex-start; flex-direction: column; }
+            .mission-box { padding: 42px 18px; }
+            .hero-card .avatar-stack + p { flex-basis: 100%; }
+            .hero-media-label { font-size: 24px; line-height: 1.2; }
+            .grid-cols-2,
+            .grid-cols-3 { grid-template-columns: 1fr; }
             .donation-panel {
                 width: 100%;
                 height: 100dvh;
                 max-height: 100dvh;
                 padding-bottom: max(2rem, env(safe-area-inset-bottom));
             }
+        }
 
-            .assist-card {
-                min-width: 118px;
-            }
+        @media (min-width: 640px) {
+            .sm\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+        }
+
+        @media (min-width: 768px) {
+            .md\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+            .md\:grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+            .md\:grid-cols-6 { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+            .md\:col-span-1 { grid-column: span 1 / span 1; }
+            .md\:text-2xl { font-size: 24px; }
+            .md\:text-3xl { font-size: 30px; }
+            .md\:text-4xl { font-size: 36px; }
+            .md\:text-lg { font-size: 18px; }
+            .md\:py-14 { padding-top: 56px; padding-bottom: 56px; }
+            .md\:py-20 { padding-top: 80px; padding-bottom: 80px; }
+            .md\:h-\[360px\] { height: 360px; }
+            .md\:p-3 { padding: 12px; }
         }
     </style>
 </head>
 <body>
-    <header class="sticky top-0 z-40 border-b border-gray-200 bg-white/95 backdrop-blur">
-        <div class="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 md:px-8">
-            <a href="#top" class="flex items-center gap-2 text-[12px] font-black uppercase leading-none text-[var(--pink)]">
-                <span class="brand-mark">B</span>
-                <span class="hidden sm:block">Cantinho<br>das Borboletas</span>
+    <main id="top" class="page-shell">
+        <header class="flex justify-center border-b border-gray-100 bg-white py-7">
+            <a href="#top" class="logo-mark" aria-label="Instituição Leão de Judá">
+                <span><b>LJ</b>Leão de Judá</span>
             </a>
-            <button onclick="openDonation()" class="rounded-md bg-[var(--pink)] px-6 py-2 text-sm font-black text-white transition hover:bg-[var(--pink-dark)]">
-                Quero Ajudar
+        </header>
+
+        <section class="content py-10 md:py-14">
+            <div class="hero-card">
+                <h1 class="mx-auto max-w-[620px] text-2xl font-black leading-tight text-[var(--blue)] md:text-4xl">
+                    Seja a esperança neste mês de Maio. <span class="text-[var(--orange)]">Nossa família depende de você para continuar.</span>
+                </h1>
+                <p class="mx-auto mt-6 max-w-[560px] text-base leading-7 text-[var(--muted)] md:text-lg">
+                    Todos os dias, nossos idosos precisam desse lar para viver com dignidade.
+                </p>
+
+                <div class="mt-7 flex flex-wrap items-center justify-center gap-3">
+                    <div class="avatar-stack" aria-hidden="true">
+                        <span class="avatar">A</span>
+                        <span class="avatar alt">M</span>
+                        <span class="avatar">R</span>
+                        <span class="avatar">C</span>
+                        <span class="avatar">+</span>
+                    </div>
+                    <p class="text-sm font-bold"><span id="donor-count">260</span> pessoas já doaram este mês</p>
+                </div>
+
+                <div class="hero-media mt-8">
+                    <img src="assets/leao-banner2.jpeg" alt="Idosos recebendo alimentação no lar">
+                    <div class="hero-media-label">Doar é cuidar <span>de carinho</span></div>
+                </div>
+
+                <div class="progress-card mt-7 text-left">
+                    <div class="mb-3 flex items-center justify-between gap-4 text-sm font-black text-[var(--blue)]">
+                        <span class="flex items-center gap-2"><span class="h-2 w-2 rounded-full bg-[var(--blue)]"></span> MAIO 2026</span>
+                        <span id="progress-label">13%</span>
+                    </div>
+                    <div class="progress-bar"><div id="progress-fill" class="progress-fill"></div></div>
+                    <div class="mt-5 grid grid-cols-3 gap-3 text-center">
+                        <div><p id="raised-value" class="text-xl font-black md:text-2xl">R$ 9.100</p><p class="mt-1 text-xs text-[var(--muted)]">arrecadados</p></div>
+                        <div><p id="donor-count-card" class="text-xl font-black md:text-2xl">260</p><p class="mt-1 text-xs text-[var(--muted)]">doadores</p></div>
+                        <div><p id="goal-value" class="text-xl font-black md:text-2xl">R$ 70.000</p><p class="mt-1 text-xs text-[var(--muted)]">meta</p></div>
+                    </div>
+                </div>
+
+                <button onclick="openDonation()" class="btn-primary mt-8">
+                    <i data-lucide="heart" class="h-5 w-5"></i>
+                    Quero ajudar agora
+                </button>
+
+                <div class="mt-7 flex flex-wrap items-center justify-center gap-4 text-sm text-[var(--muted)]">
+                    <span class="inline-flex items-center gap-1"><i data-lucide="map-pin" class="h-4 w-4"></i> Várzea Paulista, SP</span>
+                    <span>CNPJ 19.490.347/0001-98</span>
+                    <span class="verified-pill"><i data-lucide="badge-check" class="h-4 w-4"></i> Instituição Verificada</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="needs-section py-14 md:py-20">
+            <div class="wide-content">
+                <h2 class="text-center text-3xl font-black text-[var(--blue)] md:text-4xl">Necessidades - Maio 2026</h2>
+                <div class="mx-auto mt-10 grid max-w-[860px] gap-4 md:grid-cols-2">
+                    <div class="need-card"><span>3 vagas sociais</span><strong>R$ 8.600</strong></div>
+                    <div class="need-card"><span>Reforma do telhado</span><strong>R$ 15.000</strong></div>
+                    <div class="need-card"><span>Contas atrasadas</span><strong>R$ 14.200</strong></div>
+                    <div class="need-card"><span>Medicamentos contínuos</span><strong>R$ 12.000</strong></div>
+                    <div class="need-card"><span>Toldo externo (vigilância sanitária)</span><strong>R$ 6.450</strong></div>
+                    <div class="need-card"><span>Manutenção hidráulica e elétrica</span><strong>R$ 4.000</strong></div>
+                    <div class="total-card md:col-span-1"><span>Total necessário</span><strong>R$ 60.250</strong></div>
+                </div>
+                <img class="mx-auto mt-12 h-[260px] w-full max-w-[860px] rounded-2xl object-cover md:h-[360px]" src="assets/leao-refeitorio.jpg" alt="Refeitório da instituição com idosos almoçando">
+            </div>
+        </section>
+
+        <section class="content py-14 text-center md:py-20">
+            <p class="text-xs font-black uppercase tracking-[0.18em] text-[var(--orange)]">Nossa missão</p>
+            <h2 class="mt-3 text-2xl font-black text-[var(--blue)] md:text-3xl">Amor em Ação</h2>
+            <p class="text-sm text-[var(--muted)]">Transformando vidas desde 2012</p>
+            <div class="mx-auto mt-7 max-w-[560px] space-y-5 text-sm leading-8 text-[var(--muted)]">
+                <p>Muitas pessoas chegam até o Leão de Judá sem esperança e sem ter a quem recorrer. Nosso objetivo não é apenas oferecer um teto ou uma refeição, mas restaurar a dignidade e lembrar a cada acolhido que eles são amados e importantes.</p>
+                <p>Com o seu apoio, conseguimos manter nossas portas abertas todos os dias, transformando histórias de dor em novos recomeços.</p>
+            </div>
+            <button onclick="openDonation()" class="btn-primary mt-8">
+                <i data-lucide="heart" class="h-4 w-4"></i>
+                Fazer parte dessa missão
             </button>
-        </div>
-    </header>
-
-    <main id="top">
-        <section class="hero-bg relative">
-            <div class="absolute inset-x-0 bottom-0">
-                <div class="mx-auto max-w-7xl px-4 pb-8 md:px-8 md:pb-10">
-                    <h1 class="max-w-4xl text-2xl font-black leading-tight text-white md:text-4xl">
-                        Essas crianças precisam de cuidado todos os dias
-                    </h1>
-                    <p class="mt-3 max-w-2xl text-sm font-semibold text-white/90 md:text-base">
-                        Faça uma doação e ajude a manter o acolhimento que não pode parar.
-                    </p>
-                </div>
-            </div>
         </section>
 
-        <section class="border-b border-gray-200 bg-white">
-            <div class="mx-auto max-w-[760px] px-4 py-8 md:py-10">
-                <h2 class="text-base font-black leading-7 md:text-lg">
-                    Cantinho das Borboletas — Sem sua ajuda essas crianças continuam sofrendo todos os dias
-                </h2>
-
-                <div class="mt-6 flex items-end justify-between gap-5">
-                    <p id="raised-value" class="text-xl font-black text-[var(--pink)] md:text-2xl">R$ 0,00</p>
-                    <p id="goal-value" class="text-xs font-medium text-gray-500">meta de R$ 300.000,00</p>
+        <section class="mission-box">
+            <div class="content">
+                <h2 class="text-2xl font-black text-[var(--blue)] md:text-3xl">As contas chegam sem perguntar se a gente tem</h2>
+                <p class="mx-auto mt-7 max-w-[560px] text-sm leading-8 text-[var(--muted)]">
+                    As pessoas acham que um lar funciona só com boa vontade. Mas a verdade é que todos os dias nossa equipe luta para garantir comida, fraldas geriátricas, remédios, luz e água.
+                </p>
+                <div class="alert-box">
+                    Modo de sobrevivência: acumulamos uma dívida de quase R$ 60.000 e nossos estoques estão no limite. Se não pagarmos essas contas, o lar pode fechar e eles perderão a verdadeira família que construíram aqui.
                 </div>
-                <div class="mt-3 progress-bar"><div id="progress-fill" class="progress-fill"></div></div>
-                <div class="mt-2 flex items-center justify-between text-xs font-medium text-gray-500">
-                    <span id="progress-label">0% arrecadado</span>
-                    <span>Cantinho das Borboletas</span>
-                </div>
-
-                <button onclick="openDonation()" class="mt-6 w-full rounded-md bg-[var(--pink)] px-6 py-4 text-sm font-black text-white transition hover:bg-[var(--pink-dark)]">
-                    Salvar uma criança hoje
+                <button onclick="openDonation()" class="btn-primary mt-8">
+                    <i data-lucide="heart" class="h-4 w-4"></i>
+                    Ajudar a manter o lar aberto
                 </button>
             </div>
         </section>
 
-        <section class="mx-auto max-w-[760px] px-4 py-10 md:py-14">
-            <div class="story-accent pl-4">
-                <h2 class="text-xl font-black leading-8 md:text-2xl">
-                    🦋 💔 "No Cantinho das Borboletas, acolhemos crianças que o mundo abandonou"
-                </h2>
-            </div>
-
-            <div class="mt-7 space-y-5 text-[15px] leading-8 text-gray-700">
-                <p>Todos os anos, nossa ONG acolhe <span class="highlight">dezenas de crianças abandonadas</span>.</p>
-                <p>
-                    E todas têm algo em comum: <span class="highlight">doenças raras, dolorosas e cruéis</span>, como a
-                    <span class="highlight">epidermólise bolhosa</span>, uma condição que deixa a pele em carne viva,
-                    provocando feridas profundas, sangramentos constantes e dores que nenhuma criança deveria sentir.
+        <section class="needs-section py-14 md:py-20">
+            <div class="wide-content">
+                <h2 class="text-center text-2xl font-black text-[var(--blue)] md:text-3xl">Quem Somos</h2>
+                <p class="mx-auto mt-7 max-w-[560px] text-center text-sm leading-8 text-[var(--muted)]">
+                    A Instituição Leão de Judá trabalha incansavelmente para acolher e transformar a vida de dezenas de pessoas que enfrentam abandono e vulnerabilidade. Oferecemos alimento, cuidados médicos, suporte psicológico e, acima de tudo, amor de uma família.
                 </p>
-                <p>Essas crianças <span class="highlight">não escolheram sofrer</span>.</p>
-                <p>
-                    Aqui no <span class="highlight">Cantinho das Borboletas</span>, nós oferecemos lar, alimento, amor e principalmente
-                    os <span class="highlight">medicamentos e curativos</span> que podem <span class="highlight">salvar suas vidas</span>.
-                </p>
-            </div>
-        </section>
-
-        <section class="bg-[var(--soft)]">
-            <div class="mx-auto max-w-[760px] px-4 py-10 md:py-14">
-                <div class="story-accent pl-4">
-                    <h2 class="text-xl font-black">Para onde vai a sua doação</h2>
-                </div>
-                <p class="mt-5 text-sm leading-7 text-gray-700">
-                    Toda ajuda arrecadada é destinada <span class="highlight">diretamente</span> ao tratamento e ao cuidado diário dessas crianças.
-                </p>
-                <div class="mt-5 divide-y divide-gray-200 text-sm">
-                    <div class="py-4"><b>Medicamentos e insumos médicos</b><p class="mt-1 text-gray-600">Muitas crianças dependem de medicação diária e insumos que não são cobertos pelo SUS.</p></div>
-                    <div class="py-4"><b>Curativos especiais</b><p class="mt-1 text-gray-600">Crianças com condições de pele delicada precisam de troca de curativos várias vezes ao dia.</p></div>
-                    <div class="py-4"><b>Alimentação e nutrição</b><p class="mt-1 text-gray-600">Refeições preparadas diariamente com acompanhamento nutricional adequado.</p></div>
-                    <div class="py-4"><b>Consultas e exames</b><p class="mt-1 text-gray-600">Agendamentos regulares com especialistas e exames de acompanhamento.</p></div>
-                    <div class="py-4"><b>Estrutura e manutenção</b><p class="mt-1 text-gray-600">Manter o espaço funcionando com segurança, limpeza e dignidade.</p></div>
-                    <div class="py-4"><b>Higiene e cuidado diário</b><p class="mt-1 text-gray-600">Fraldas, produtos de higiene pessoal e itens de uso contínuo.</p></div>
+                <div class="mt-8 grid gap-4 md:grid-cols-4">
+                    <article class="area-card">
+                        <img src="assets/leao-refeitorio.jpg" alt="Refeitório principal">
+                        <div class="p-4 text-center"><h3 class="font-black text-[var(--blue)]">Refeitório Principal</h3><p class="mt-2 text-xs text-[var(--muted)]">Estrutura</p></div>
+                    </article>
+                    <article class="area-card">
+                        <img src="assets/leao-acolhimento.png" alt="Acolhimento a idoso">
+                        <div class="p-4 text-center"><h3 class="font-black text-[var(--blue)]">Casa de Acolhimento</h3><p class="mt-2 text-xs text-[var(--muted)]">Acolhimento</p></div>
+                    </article>
+                    <article class="area-card">
+                        <img src="assets/leao-atividades.png" alt="Atividades com idosos">
+                        <div class="p-4 text-center"><h3 class="font-black text-[var(--blue)]">Apoio e Integração</h3><p class="mt-2 text-xs text-[var(--muted)]">Atividades</p></div>
+                    </article>
+                    <article class="area-card">
+                        <img src="assets/leao-banner1.jpeg" alt="Equipe cuidando de idoso">
+                        <div class="p-4 text-center"><h3 class="font-black text-[var(--blue)]">Nossa Equipe de Cuidado</h3><p class="mt-2 text-xs text-[var(--muted)]">Funcionários</p></div>
+                    </article>
                 </div>
             </div>
         </section>
 
-        <section>
-            <div class="mx-auto max-w-[760px] px-4 py-10 md:py-14">
-                <div class="story-accent pl-4">
-                    <h2 class="text-xl font-black">O poder da sua ajuda</h2>
+        <section class="content py-14 text-center md:py-20">
+            <h2 class="text-2xl font-black text-[var(--blue)] md:text-3xl">Para onde vai a sua doação?</h2>
+            <p class="mx-auto mt-6 max-w-[520px] text-sm leading-7 text-[var(--muted)]">
+                100% da sua doação é utilizada para manter o funcionamento do lar e garantir o bem-estar dos nossos idosos.
+            </p>
+            <div class="mt-8 grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-6">
+                <div class="use-card"><div class="text-3xl">🍲</div><h3 class="mt-3 text-sm font-black text-[var(--blue)]">Alimentação</h3><p class="mt-2 text-xs text-[var(--muted)]">Refeições nutritivas todos os dias</p></div>
+                <div class="use-card"><div class="text-3xl">💊</div><h3 class="mt-3 text-sm font-black text-[var(--blue)]">Medicamento</h3><p class="mt-2 text-xs text-[var(--muted)]">Remédios essenciais para os idosos</p></div>
+                <div class="use-card"><div class="text-3xl">🧼</div><h3 class="mt-3 text-sm font-black text-[var(--blue)]">Higiene</h3><p class="mt-2 text-xs text-[var(--muted)]">Fraldas geriátricas e produtos de higiene</p></div>
+                <div class="use-card"><div class="text-3xl">💡</div><h3 class="mt-3 text-sm font-black text-[var(--blue)]">Contas</h3><p class="mt-2 text-xs text-[var(--muted)]">Água, luz e manutenção do lar</p></div>
+                <div class="use-card"><div class="text-3xl">👥</div><h3 class="mt-3 text-sm font-black text-[var(--blue)]">Equipe</h3><p class="mt-2 text-xs text-[var(--muted)]">Cuidadores 24h para os idosos</p></div>
+                <div class="use-card"><div class="text-3xl">🏠</div><h3 class="mt-3 text-sm font-black text-[var(--blue)]">Estrutura</h3><p class="mt-2 text-xs text-[var(--muted)]">Reformas e melhorias no lar</p></div>
+            </div>
+
+            <div class="mt-10 grid gap-5 text-left md:grid-cols-2">
+                <div class="comparison-card border border-red-200 bg-red-50 text-red-700">
+                    <h3 class="font-black">⊖ Sem você...</h3>
+                    <ul class="mt-3 text-sm">
+                        <li><span>✕</span><span>Falta comida nutritiva no prato todos os dias</span></li>
+                        <li><span>✕</span><span>Faltam fraldas geriátricas e higiene básica</span></li>
+                        <li><span>✕</span><span>Faltam remédios essenciais para aliviar as dores</span></li>
+                        <li><span>✕</span><span>Não conseguimos manter nossos cuidadores 24h</span></li>
+                    </ul>
                 </div>
-                <div class="mt-6 space-y-5 text-sm leading-8 text-gray-700">
-                    <p>Talvez você não saiba...</p>
-                    <p>Com o valor de um <span class="highlight">simples lanche</span>, você pode garantir o <span class="highlight">curativo de um dia inteiro</span> para uma criança.</p>
-                    <p>Com uma contribuição mensal menor que uma conta de celular, você pode <span class="highlight">literalmente salvar vidas</span> que hoje estão entre a vida e a morte.</p>
-                    <p>Sem o Cantinho das Borboletas, muitas dessas crianças <span class="highlight">já não estariam entre nós</span>.</p>
-                    <p>Mas com a sua ajuda, elas podem continuar lutando, sorrindo e acreditando que <span class="highlight">o amanhã existe</span>.</p>
+                <div class="comparison-card border border-green-200 bg-green-50 text-green-800">
+                    <h3 class="font-black">⊕ Com você...</h3>
+                    <ul class="mt-3 text-sm">
+                        <li><span>✓</span><span>Garantimos 5 refeições por dia para todos</span></li>
+                        <li><span>✓</span><span>Mantemos a higiene e dignidade dos idosos</span></li>
+                        <li><span>✓</span><span>Compramos todos os medicamentos necessários</span></li>
+                        <li><span>✓</span><span>Oferecemos cuidado 24h com amor e dedicação</span></li>
+                    </ul>
+                </div>
+            </div>
+
+            <button onclick="openDonation()" class="btn-primary mt-8">
+                <i data-lucide="heart" class="h-4 w-4"></i>
+                Ajudar agora
+            </button>
+        </section>
+
+        <section class="faq-section py-14 md:py-20">
+            <div class="content">
+                <h2 class="text-center text-2xl font-black text-[var(--blue)] md:text-3xl">Perguntas Frequentes</h2>
+                <p class="mt-6 text-center text-sm text-[var(--muted)]">Tire suas dúvidas sobre doações e nosso trabalho</p>
+                <div class="mx-auto mt-8 max-w-[560px] space-y-4">
+                    <details class="faq-item">
+                        <summary>As doações são seguras?<i data-lucide="chevron-down" class="h-4 w-4"></i></summary>
+                        <p>Sim. O pagamento é gerado via PIX pelo mesmo fluxo seguro já existente no site.</p>
+                    </details>
+                    <details class="faq-item">
+                        <summary>Existe um valor mínimo para doar?<i data-lucide="chevron-down" class="h-4 w-4"></i></summary>
+                        <p>Você pode escolher um dos valores sugeridos ou informar um valor personalizado no formulário de doação.</p>
+                    </details>
+                    <details class="faq-item">
+                        <summary>Posso doar fraldas ou alimentos?<i data-lucide="chevron-down" class="h-4 w-4"></i></summary>
+                        <p>Sim. A instituição também recebe doações presenciais de itens essenciais para o cuidado diário dos idosos.</p>
+                    </details>
+                    <details class="faq-item">
+                        <summary>Como acompanho o trabalho de vocês?<i data-lucide="chevron-down" class="h-4 w-4"></i></summary>
+                        <p>Você pode visitar, acompanhar as atualizações da campanha e falar diretamente com a equipe da instituição.</p>
+                    </details>
+                    <details class="faq-item">
+                        <summary>Posso visitar a instituição?<i data-lucide="chevron-down" class="h-4 w-4"></i></summary>
+                        <p>Sim. Agende uma visita e venha conhecer o lar em Várzea Paulista, SP.</p>
+                    </details>
                 </div>
             </div>
         </section>
 
-        <section class="bg-[var(--soft)]">
-            <div class="mx-auto max-w-[760px] px-4 py-10 md:py-14">
-                <div class="story-accent pl-4">
-                    <h2 class="text-xl font-black">Como tudo começou</h2>
-                </div>
-                <div class="mt-6 space-y-5 text-sm leading-8 text-gray-700">
-                    <p>O <span class="highlight">Cantinho das Borboletas</span> nasceu da necessidade de oferecer <span class="highlight">respostas rápidas e reais</span> a crianças em extrema vulnerabilidade.</p>
-                    <p>De pequenos gestos de acolhimento, evoluímos para uma operação constante, com médicos, voluntários e parceiros comprometidos.</p>
-                    <p>Trabalhamos com <span class="highlight">transparência total</span>, cuidado contínuo e responsabilidade em cada decisão tomada.</p>
-                </div>
-            </div>
-        </section>
-
-        <section>
-            <div class="mx-auto max-w-[760px] px-4 py-10 md:py-14">
-                <div class="story-accent pl-4">
-                    <h2 class="text-xl font-black">Nossa essencia</h2>
-                </div>
-                <div class="mt-6 space-y-5 text-sm leading-8 text-gray-700">
-                    <p><span class="highlight">MISSÃO</span></p>
-                    <p>Salvar vidas e devolver esperança, oferecendo lar, cuidados médicos e dignidade a crianças com doenças raras e dolorosas.</p>
-                    <p><span class="highlight">VISÃO</span></p>
-                    <p>Um país onde nenhuma criança sofra ou morra por falta de tratamento ou de um lar seguro.</p>
-                    <p><span class="highlight">VALORES</span></p>
-                    <p>Transparência total, dignidade e respeito, amor e responsabilidade em cuidado humano e constante.</p>
-                </div>
-            </div>
-        </section>
-
-        <section class="facts-bg px-4 py-14 text-center text-white md:py-20">
-            <div class="mx-auto max-w-4xl">
-                <div class="mx-auto mb-4 h-1 w-16 bg-yellow-300"></div>
-                <h2 class="text-3xl font-black md:text-4xl">Fatos e números da ONG</h2>
-                <p class="mx-auto mt-3 max-w-xl text-sm font-semibold text-white/90">
-                    Veja alguns indicadores do cuidado e da estrutura que mantêm nossos projetos em funcionamento.
-                </p>
-                <div class="mt-8 grid grid-cols-2 gap-5 md:grid-cols-4">
-                    <div><div class="mx-auto grid h-16 w-16 place-items-center rounded-full bg-white text-[var(--pink)]"><i data-lucide="baby" class="h-8 w-8"></i></div><p class="mt-3 text-4xl font-black text-black">155</p><p class="text-xs font-bold text-black">Assistidos pela ONG CB</p></div>
-                    <div><div class="mx-auto grid h-16 w-16 place-items-center rounded-full bg-white text-[var(--pink)]"><i data-lucide="hand-heart" class="h-8 w-8"></i></div><p class="mt-3 text-4xl font-black text-black">500</p><p class="text-xs font-bold text-black">Beneficiados indiretamente</p></div>
-                    <div><div class="mx-auto grid h-16 w-16 place-items-center rounded-full bg-white text-[var(--pink)]"><i data-lucide="hospital" class="h-8 w-8"></i></div><p class="mt-3 text-4xl font-black text-black">2</p><p class="text-xs font-bold text-black">Polos para atendimentos</p></div>
-                    <div><div class="mx-auto grid h-16 w-16 place-items-center rounded-full bg-white text-[var(--pink)]"><i data-lucide="user-round-check" class="h-8 w-8"></i></div><p class="mt-3 text-4xl font-black text-black">22</p><p class="text-xs font-bold text-black">Colaboradores</p></div>
-                </div>
-            </div>
-        </section>
-
-        <section class="texture px-4 py-12 md:py-16">
-            <div class="mx-auto max-w-4xl text-center">
-                <p class="script text-2xl">Borboletas do nosso Cantinho</p>
-                <h2 class="mt-2 text-3xl font-black md:text-4xl">São + de 156 Assistidos</h2>
-                <p class="mt-3 text-sm text-gray-600">Torne-se um padrinho e contribua mensalmente para reduzir a dor de nossas crianças.</p>
-                <div id="assistidos-list" class="mt-8 flex gap-4 overflow-x-auto pb-4"></div>
-            </div>
-        </section>
-
-        <section class="mx-auto max-w-[760px] px-4 py-10 md:py-14">
-            <div class="story-accent pl-4">
-                <h2 class="text-xl font-black">Atualização da campanha</h2>
-            </div>
-            <div class="mt-6 space-y-5 text-sm leading-8 text-gray-700">
-                <p class="text-xs font-bold uppercase text-gray-500">14 de março de 2026</p>
-                <p>Essas são as faces da Epidermólise Bolhosa, crianças e adultos que enfrentam todos os dias a dor de uma pele que se rompe com o mínimo toque.</p>
-                <p>Graças a solidariedade de pessoas como você, conseguimos entregar curativos, medicamentos, suplementos e materiais essenciais para quem mais precisa.</p>
-                <p class="story-accent bg-[#fff7fb] py-4 pl-4 font-bold text-[var(--pink)]">Cada dia sem doação e um dia a mais de espera para uma criança que já esperou tempo demais.</p>
-                <p>Não existe valor pequeno. R$ 20 compra fraldas, R$ 50 paga curativos, R$ 100 garante uma consulta médica. O que para você é um café a menos no mês, para essas crianças é a diferença entre ter cuidado ou não ter.</p>
-                <div class="update-gallery mt-7">
-                    <div id="update-gallery-track" class="update-gallery-track">
-                        <img src="https://cantinhodasborboletas-br.click/lp-cantinho/images/att4.png" alt="Atualização da campanha com doações recebidas" loading="lazy">
-                        <img src="https://cantinhodasborboletas-br.click/lp-cantinho/images/att2.png" alt="Atualização da campanha com alimentos e insumos" loading="lazy">
-                    </div>
-                    <button type="button" class="gallery-arrow prev" onclick="scrollUpdateGallery(-1)" aria-label="Imagem anterior">
-                        <i data-lucide="chevron-left" class="h-5 w-5"></i>
-                    </button>
-                    <button type="button" class="gallery-arrow next" onclick="scrollUpdateGallery(1)" aria-label="Próxima imagem">
-                        <i data-lucide="chevron-right" class="h-5 w-5"></i>
-                    </button>
-                </div>
-            </div>
-        </section>
-
-        <section class="border-t border-gray-200 bg-white">
-            <div class="mx-auto max-w-[760px] px-4 py-10 md:py-14">
-                <div class="story-accent pl-4">
-                    <h2 class="text-xl font-black">Quem já doou</h2>
-                </div>
-
-                <div class="mt-8 text-sm leading-7 text-gray-700">
-                    <p>Fiz minha doação semana passada. É rápido pelo PIX e fico tranquila sabendo que vai direto para as crianças. Pretendo doar todo mês.</p>
-                    <div class="donor-row">
-                        <p><b>Mariana S.</b> <span class="text-xs text-gray-500">- 11/03/2026</span></p>
-                        <p class="font-black text-[var(--pink)]">R$ 100</p>
-                    </div>
-
-                    <p class="mt-5">Conheço uma das cuidadoras do projeto. O trabalho é sério. Doei R$ 50 e indiquei para minha família também.</p>
-                    <div class="donor-row">
-                        <p><b>Carlos R.</b> <span class="text-xs text-gray-500">- 08/03/2026</span></p>
-                        <p class="font-black text-[var(--pink)]">R$ 50</p>
-                    </div>
-
-                    <p class="mt-5">Doei porque sei o que é precisar de ajuda. R$ 35 pode parecer pouco, mas quando muita gente faz isso junto, vira muito.</p>
-                    <div class="donor-row">
-                        <p><b>Ana Paula M.</b> <span class="text-xs text-gray-500">- 05/03/2026</span></p>
-                        <p class="font-black text-[var(--pink)]">R$ 35</p>
-                    </div>
-
-                    <p class="mt-5">Meus filhos quiseram ajudar com o dinheiro do lanche deles. Fizemos o PIX juntos. Ficaram orgulhosos.</p>
-                    <div class="donor-row">
-                        <p><b>Roberto F.</b> <span class="text-xs text-gray-500">- 01/03/2026</span></p>
-                        <p class="font-black text-[var(--pink)]">R$ 200</p>
+        <section class="py-14 text-center md:py-20">
+            <div class="content">
+                <h2 class="text-2xl font-black text-[var(--blue)] md:text-3xl">Nossa Localização</h2>
+                <p class="mt-6 text-sm text-[var(--muted)]">Venha nos visitar, agende uma visita. Estamos em Várzea Paulista, SP.</p>
+                <div class="map-card mx-auto mt-8 max-w-[620px]">
+                    <iframe
+                        title="Mapa da Instituição Leão de Judá"
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade"
+                        src="https://www.google.com/maps?q=Av.%20Fern%C3%A3o%20Dias%20Paes%20Leme%2C%20723%2C%20V%C3%A1rzea%20Paulista%2C%20SP&output=embed">
+                    </iframe>
+                    <div class="bg-[var(--soft)] px-5 py-6">
+                        <p class="font-bold text-[var(--blue)]">Av. Fernão Dias Paes Leme, 723</p>
+                        <p class="mt-1 text-sm text-[var(--muted)]">Várzea Paulista, SP - CEP 13220-001</p>
+                        <a class="btn-primary mt-5" href="https://www.google.com/maps/search/?api=1&query=Av.%20Fern%C3%A3o%20Dias%20Paes%20Leme%2C%20723%2C%20V%C3%A1rzea%20Paulista%2C%20SP" target="_blank" rel="noopener">
+                            <i data-lucide="map-pin" class="h-4 w-4"></i>
+                            Abrir no Google Maps
+                        </a>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section class="bg-[var(--soft)]">
-            <div class="mx-auto max-w-[760px] px-4 py-10 text-center md:py-14">
-                <h2 class="text-lg font-black">Se você leu até aqui, considere doar.</h2>
-                <p class="mx-auto mt-4 max-w-md text-sm leading-7 text-gray-600">
-                    Qualquer valor ajuda. Leva menos de um minuto pelo PIX e chega direto para quem precisa.
-                </p>
-                <button onclick="openDonation()" class="mt-7 w-full max-w-[260px] rounded-md bg-[var(--pink)] px-6 py-4 text-sm font-black text-white transition hover:bg-[var(--pink-dark)]">
-                    Doar agora
-                </button>
+        <footer class="footer py-10 text-center">
+            <div class="logo-mark mx-auto border-white bg-white">
+                <span><b>LJ</b>Leão de Judá</span>
             </div>
-        </section>
+            <p class="mt-6 text-xs font-bold">CNPJ 19.490.347/0001-98 - Várzea Paulista, SP</p>
+            <p class="mt-4 text-xs">© 2026 Todos os direitos reservados</p>
+        </footer>
     </main>
 
     <div id="donation-modal" class="fixed inset-0 z-50 hidden overflow-y-auto overscroll-contain bg-black/40">
@@ -471,11 +819,11 @@
                 </button>
 
                 <div class="px-1 pb-8 pt-8">
-                    <h2 class="max-w-[320px] text-lg font-black leading-6">Cantinho das Borboletas - Acolhimento para crianças</h2>
-                    <p id="modal-raised-value" class="mt-5 text-xl font-black">R$ 0,00</p>
-                    <p id="modal-progress-label" class="mt-1 text-xs text-gray-500">arrecadados de R$ 300.000,00</p>
+                    <h2 class="max-w-[320px] text-lg font-black leading-6">Instituição Leão de Judá - Lar para idosos</h2>
+                    <p id="modal-raised-value" class="mt-5 text-xl font-black">R$ 9.100</p>
+                    <p id="modal-progress-label" class="mt-1 text-xs text-gray-500">arrecadados de R$ 70.000</p>
                     <div class="mt-3 progress-bar"><div id="modal-progress-fill" class="progress-fill"></div></div>
-                    <p class="mt-2 text-[11px] text-gray-500"><span id="modal-percentage">45%</span> Completo</p>
+                    <p class="mt-2 text-[11px] text-gray-500"><span id="modal-percentage">13%</span> Completo</p>
 
                     <form id="donation-form" class="mt-5">
                         <label class="text-xs font-bold text-gray-700">Escolha o valor da sua contribuição:</label>
@@ -498,22 +846,21 @@
                         <input id="cust-name" class="field mt-2" autocomplete="name" placeholder="Digite seu nome">
 
                         <div class="mt-3 flex items-center gap-2">
-                            <input id="anonymous" type="checkbox" class="h-4 w-4 accent-[var(--pink)]">
+                            <input id="anonymous" type="checkbox" class="h-4 w-4 accent-[var(--blue)]">
                             <label for="anonymous" class="text-xs text-gray-700">Doar anonimamente</label>
                         </div>
 
                         <label class="mt-4 block text-xs font-bold text-gray-700">E-mail</label>
                         <input id="cust-email" type="email" class="field mt-2" autocomplete="email" placeholder="Digite seu e-mail">
 
-
                         <label class="mt-4 block text-xs font-bold text-gray-700">Mensagem (opcional)</label>
                         <textarea id="support-message" class="field mt-2 min-h-[72px] resize-y" placeholder="Adicione uma mensagem de apoio"></textarea>
 
-                        <button id="pay-btn" type="submit" class="mt-5 flex w-full items-center justify-center gap-2 rounded-md bg-[var(--pink)] px-6 py-4 text-sm font-black text-white transition hover:bg-[var(--pink-dark)] disabled:cursor-not-allowed disabled:opacity-70">
+                        <button id="pay-btn" type="submit" class="mt-5 flex w-full items-center justify-center gap-2 rounded-md bg-[var(--blue)] px-6 py-4 text-sm font-black text-white transition hover:bg-[var(--blue-dark)] disabled:cursor-not-allowed disabled:opacity-70">
                             Quero Ajudar
                             <i data-lucide="hand-heart" class="h-4 w-4"></i>
                         </button>
-                        <p class="mt-3 text-center text-[10px] text-gray-500">Pagamento seguro via PIX - Cantinho das Borboletas</p>
+                        <p class="mt-3 text-center text-[10px] text-gray-500">Pagamento seguro via PIX - Instituição Leão de Judá</p>
                     </form>
 
                     <div id="pix-panel" class="mt-5 hidden rounded-md border border-gray-200 bg-gray-50 p-3">
@@ -521,11 +868,11 @@
                         <img id="pix-qr-image" class="mx-auto hidden h-52 w-52 object-contain" alt="QR Code PIX">
                         <div class="mt-3 flex gap-2">
                             <input id="pix-code" readonly class="min-w-0 flex-1 rounded-md border border-gray-200 bg-white px-3 py-3 text-xs text-gray-600">
-                            <button onclick="copyPix()" type="button" class="rounded-md bg-gray-900 px-4 py-3 text-white">
+                            <button onclick="copyPix()" type="button" class="rounded-md bg-gray-900 px-4 py-3 text-white" aria-label="Copiar código PIX">
                                 <i data-lucide="copy" class="h-4 w-4"></i>
                             </button>
                         </div>
-                        <p id="copy-feedback" class="mt-2 hidden text-sm font-bold text-[var(--teal)]">Código PIX copiado.</p>
+                        <p id="copy-feedback" class="mt-2 hidden text-sm font-bold text-[var(--green)]">Código PIX copiado.</p>
                     </div>
                 </div>
             </aside>
@@ -533,41 +880,11 @@
     </div>
 
     <script>
-        const assistidos = [
-            { name: "FABRÍCIO MACHADO", image: "https://ongjardimdasborboletas.org/wp-content/uploads/2025/08/FABRICIO-MACHADO-COSTA-MG.webp", alt: "Fabrício Machado Costa" },
-            { name: "GEANYNE FERREIRA", image: "https://ongjardimdasborboletas.org/wp-content/uploads/2025/08/GEANYNE-FERREIRA-STUPP-SC.webp", alt: "Geanyne Ferreira Stupp" },
-            { name: "ISADORA MARIA", image: "https://ongjardimdasborboletas.org/wp-content/uploads/2025/08/Isadora-Maria-Lopes-da-Silva-DF.webp", alt: "Isadora Maria Lopes da Silva" },
-            { name: "FABIANE NASCIMENTO", image: "https://ongjardimdasborboletas.org/wp-content/uploads/2025/08/FABIANE-NASCIMENTO-RJ.webp", alt: "Fabiane Nascimento" },
-            { name: "FELIPE LORRAN", image: "https://ongjardimdasborboletas.org/wp-content/uploads/2025/08/Felipe-Lorran-Conceicao-de-Lima-AL.webp", alt: "Felipe Lorran Conceição de Lima" },
-            { name: "GUILHERME LIMA", image: "https://ongjardimdasborboletas.org/wp-content/uploads/2025/08/Guilherme-Lima-Craddock-RJ.webp", alt: "Guilherme Lima Craddock" },
-            { name: "ISAC MIGUEL", image: "https://ongjardimdasborboletas.org/wp-content/uploads/2025/08/ISAC-MIGUEL-DE-FRANCA-SP.webp", alt: "Isac Miguel de França" },
-            { name: "JANAINA RODRIGUES", image: "https://ongjardimdasborboletas.org/wp-content/uploads/2025/08/JANAINA-RODRIGUES-PEREIRA-RJ.webp", alt: "Janaina Rodrigues Pereira" },
-            { name: "JOÃO BATISTA", image: "https://ongjardimdasborboletas.org/wp-content/uploads/2025/08/JOAO-BATISTA-CORREIA-SOARES-CE.webp", alt: "João Batista Correia Soares" },
-            { name: "JOÃO PEDRO", image: "https://ongjardimdasborboletas.org/wp-content/uploads/2025/08/Joao-Pedro-Costa-dos-Santos-SP.webp", alt: "João Pedro Costa dos Santos" }
-        ];
-
-        function renderAssistidos() {
-            const list = document.getElementById("assistidos-list");
-            if (!list) return;
-
-            list.innerHTML = assistidos.map((item) => {
-                const [first, ...rest] = item.name.split(" ");
-                return `
-                    <div class="assist-card">
-                        <img src="${item.image}" alt="${item.alt}" loading="lazy">
-                        <div class="p-3 text-white">
-                            <p class="script text-base">Borboleta</p>
-                            <b>${first}<br>${rest.join(" ")}</b>
-                        </div>
-                    </div>
-                `;
-            }).join("");
-        }
-        const DEFAULT_STATS = { raised: 0, goal: 300000, percentage: 0 };
+        const DEFAULT_STATS = { raised: 9100, goal: 70000, percentage: 13, donationCount: 260 };
         let selectedAmount = 50;
 
         function formatCurrency(value) {
-            return Number(value || 0).toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+            return Number(value || 0).toLocaleString("pt-BR", { style: "currency", currency: "BRL", maximumFractionDigits: 0 });
         }
 
         function parseMoney(value) {
@@ -578,18 +895,26 @@
             return Number(normalized);
         }
 
+        function setText(id, value) {
+            const element = document.getElementById(id);
+            if (element) element.innerText = value;
+        }
+
         function updateStatsUI(stats = DEFAULT_STATS) {
             const raised = Number(stats.raised ?? DEFAULT_STATS.raised);
             const goal = Number(stats.goal ?? DEFAULT_STATS.goal);
+            const donationCount = Number(stats.donationCount ?? DEFAULT_STATS.donationCount);
             const percentage = goal > 0 ? Math.min(100, Math.round((raised / goal) * 100)) : 0;
 
-            document.getElementById("raised-value").innerText = formatCurrency(raised);
-            document.getElementById("goal-value").innerText = `meta de ${formatCurrency(goal)}`;
-            document.getElementById("progress-label").innerText = `${percentage}% arrecadado`;
+            setText("raised-value", formatCurrency(raised));
+            setText("goal-value", formatCurrency(goal));
+            setText("progress-label", `${percentage}%`);
+            setText("donor-count", donationCount.toLocaleString("pt-BR"));
+            setText("donor-count-card", donationCount.toLocaleString("pt-BR"));
             document.getElementById("progress-fill").style.width = `${percentage}%`;
-            document.getElementById("modal-raised-value").innerText = formatCurrency(raised);
-            document.getElementById("modal-progress-label").innerText = `arrecadados de ${formatCurrency(goal)}`;
-            document.getElementById("modal-percentage").innerText = `${percentage}%`;
+            setText("modal-raised-value", formatCurrency(raised));
+            setText("modal-progress-label", `arrecadados de ${formatCurrency(goal)}`);
+            setText("modal-percentage", `${percentage}%`);
             document.getElementById("modal-progress-fill").style.width = `${percentage}%`;
         }
 
@@ -603,12 +928,6 @@
             }
         }
 
-
-        function scrollUpdateGallery(direction) {
-            const track = document.getElementById("update-gallery-track");
-            if (!track) return;
-            track.scrollBy({ left: direction * track.clientWidth, behavior: "smooth" });
-        }
         function openDonation() {
             const modal = document.getElementById("donation-modal");
             modal.classList.remove("hidden");
@@ -664,7 +983,7 @@
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
-                        items: [{ id: 1, title: "Doação Cantinho das Borboletas", price: amount, qty: 1, message }],
+                        items: [{ id: 1, title: "Doação Instituição Leão de Judá", price: amount, qty: 1, message }],
                         customer: { name, cpf: "00000000000", email },
                         delivery: { cep: "00000-000", address: "Doação online", number: "0", city: "Online", complement: message }
                     })
@@ -689,6 +1008,7 @@
                 lucide.createIcons();
             }
         }
+
         function renderPixQr(base64Qr, pixCode) {
             const image = document.getElementById("pix-qr-image");
             const placeholder = document.getElementById("pix-qr-placeholder");
@@ -728,7 +1048,6 @@
             processDonation();
         });
 
-        renderAssistidos();
         loadDonationStats();
         lucide.createIcons();
     </script>

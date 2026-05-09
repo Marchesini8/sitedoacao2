@@ -3,6 +3,7 @@ const path = require('path');
 
 const BASE_RAISED = Number(process.env.CAMPAIGN_BASE_RAISED || 0);
 const GOAL_AMOUNT = Number(process.env.CAMPAIGN_GOAL_AMOUNT || 300000);
+const BASE_DONOR_COUNT = Number(process.env.CAMPAIGN_BASE_DONOR_COUNT || 0);
 const dataDir = path.join(__dirname, '..', 'data');
 const dataFile = path.join(dataDir, 'donations.json');
 
@@ -43,7 +44,7 @@ function getStats() {
     raised,
     goal: GOAL_AMOUNT,
     percentage: Math.min(100, Math.round((raised / GOAL_AMOUNT) * 100)),
-    donationCount: store.donations.length,
+    donationCount: BASE_DONOR_COUNT + store.donations.length,
   };
 }
 
