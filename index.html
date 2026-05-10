@@ -472,6 +472,26 @@
             box-shadow: 0 0 0 4px rgba(0, 63, 146, 0.12);
         }
 
+        .money-field {
+            position: relative;
+            margin-top: 8px;
+        }
+
+        .money-field .field {
+            margin-top: 0;
+            padding-left: 44px;
+        }
+
+        .money-prefix {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            color: var(--ink);
+            font-weight: 900;
+            transform: translateY(-50%);
+            pointer-events: none;
+        }
+
         .amount-btn {
             border: 1px solid #d9dde4;
             border-radius: 8px;
@@ -787,10 +807,10 @@
                     <form id="donation-form" class="mt-5">
                         <label class="text-xs font-bold text-gray-700">Escolha o valor da sua contribuição:</label>
                         <div id="amount-grid" class="mt-3 grid grid-cols-2 gap-2">
-                            <button type="button" class="amount-btn" data-value="5">R$ 5</button>
+                            <button type="button" class="amount-btn active" data-value="5">R$ 5</button>
                             <button type="button" class="amount-btn" data-value="20">R$ 20</button>
                             <button type="button" class="amount-btn" data-value="30">R$ 30</button>
-                            <button type="button" class="amount-btn active" data-value="50">R$ 50</button>
+                            <button type="button" class="amount-btn" data-value="50">R$ 50</button>
                             <button type="button" class="amount-btn" data-value="100">R$ 100</button>
                             <button type="button" class="amount-btn" data-value="150">R$ 150</button>
                             <button type="button" class="amount-btn" data-value="200">R$ 200</button>
@@ -800,7 +820,10 @@
                         </div>
 
                         <label class="mt-4 block text-xs font-bold text-gray-700">Valor personalizado</label>
-                        <input id="custom-amount" class="field mt-2" inputmode="decimal" placeholder="R$ 50">
+                        <div class="money-field">
+                            <span class="money-prefix">R$</span>
+                            <input id="custom-amount" class="field" inputmode="decimal" placeholder="0,00">
+                        </div>
 
                         <label class="mt-4 block text-xs font-bold text-gray-700">Seu nome</label>
                         <input id="cust-name" class="field mt-2" autocomplete="name" placeholder="Digite seu nome">
@@ -841,7 +864,7 @@
 
     <script>
         const DEFAULT_STATS = { raised: 9100, goal: 70000, percentage: 13, donationCount: 260 };
-        let selectedAmount = 50;
+        let selectedAmount = 5;
 
         function formatCurrency(value) {
             return Number(value || 0).toLocaleString("pt-BR", { style: "currency", currency: "BRL", maximumFractionDigits: 0 });
