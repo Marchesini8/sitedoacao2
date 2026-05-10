@@ -2,9 +2,11 @@
 const path = require('path');
 
 const CAMPAIGN_GOAL_AMOUNT = 60250;
-const BASE_RAISED = Number(process.env.CAMPAIGN_BASE_RAISED || 0);
+const CAMPAIGN_MIN_RAISED = 12976;
+const CAMPAIGN_MIN_DONOR_COUNT = 250;
+const BASE_RAISED = Math.max(Number(process.env.CAMPAIGN_BASE_RAISED || 0), CAMPAIGN_MIN_RAISED);
 const GOAL_AMOUNT = CAMPAIGN_GOAL_AMOUNT;
-const BASE_DONOR_COUNT = Number(process.env.CAMPAIGN_BASE_DONOR_COUNT || 0);
+const BASE_DONOR_COUNT = Math.max(Number(process.env.CAMPAIGN_BASE_DONOR_COUNT || 0), CAMPAIGN_MIN_DONOR_COUNT);
 const dataDir = path.join(__dirname, '..', 'data');
 const dataFile = path.join(dataDir, 'donations.json');
 
