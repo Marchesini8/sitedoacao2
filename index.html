@@ -589,7 +589,7 @@
         <section class="content py-10 md:py-14">
             <div class="hero-card">
                 <h1 class="mx-auto max-w-[620px] text-2xl font-black leading-tight text-[var(--blue)] md:text-4xl">
-                    Seja a esperança neste mês de Maio. <span class="text-[var(--orange)]">Nossa família depende de você para continuar.</span>
+                    Seja a esperança neste mês de Maio. <span class="text-[var(--orange)]">Seu apoio ajuda nossos idosos a terem alimentação e medicamentos todos os dias.</span>
                 </h1>
                 <p class="mx-auto mt-6 max-w-[560px] text-base leading-7 text-[var(--muted)] md:text-lg">
                     Todos os dias, nossos idosos precisam desse lar para viver com dignidade.
@@ -627,13 +627,13 @@
 
                 <button onclick="openDonation()" class="btn-primary mt-8">
                     <i data-lucide="heart" class="h-5 w-5"></i>
-                    Quero ajudar agora
+                    AJUDAR UM IDOSO
                 </button>
 
                 <div class="mt-7 flex flex-wrap items-center justify-center gap-4 text-sm text-[var(--muted)]">
                     <span class="inline-flex items-center gap-1"><i data-lucide="map-pin" class="h-4 w-4"></i> Várzea Paulista, SP</span>
                     <span>CNPJ 19.490.347/0001-98</span>
-                    <span class="verified-pill"><i data-lucide="badge-check" class="h-4 w-4"></i> Instituição Verificada</span>
+                    <span class="verified-pill"><img src="assets/verificado.png" alt="" class="h-4 w-4 object-contain"> Instituição Verificada</span>
                 </div>
             </div>
         </section>
@@ -748,7 +748,7 @@
 
             <button onclick="openDonation()" class="btn-primary mt-8">
                 <i data-lucide="heart" class="h-4 w-4"></i>
-                Ajudar agora
+                AJUDAR UM IDOSO
             </button>
         </section>
 
@@ -858,7 +858,7 @@
                         <textarea id="support-message" class="field mt-2 min-h-[72px] resize-y" placeholder="Adicione uma mensagem de apoio"></textarea>
 
                         <button id="pay-btn" type="submit" class="mt-5 flex w-full items-center justify-center gap-2 rounded-md bg-[var(--blue)] px-6 py-4 text-sm font-black text-white transition hover:bg-[var(--blue-dark)] disabled:cursor-not-allowed disabled:opacity-70">
-                            Quero Ajudar
+                            AJUDAR UM IDOSO
                             <i data-lucide="hand-heart" class="h-4 w-4"></i>
                         </button>
                         <p class="mt-3 text-center text-[10px] text-gray-500">Pagamento seguro via PIX - Instituição Leão de Judá</p>
@@ -1020,7 +1020,7 @@
                 alert("Erro ao gerar PIX. Verifique os dados e tente novamente.");
             } finally {
                 btn.disabled = false;
-                btn.innerHTML = 'Quero Ajudar <i data-lucide="hand-heart" class="h-4 w-4"></i>';
+                btn.innerHTML = 'AJUDAR UM IDOSO <i data-lucide="hand-heart" class="h-4 w-4"></i>';
                 lucide.createIcons();
             }
         }
