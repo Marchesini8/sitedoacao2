@@ -35,7 +35,8 @@ function writeStore(store) {
 
 function getStats() {
   const store = readStore();
-  const onlineRaised = store.donations.reduce((total, donation) => total + Number(donation.amount || 0), 0);
+  const paidDonations = store.donations.filter((donation) => donation.status !== 'pending');
+  const onlineRaised = paidDonations.reduce((total, donation) => total + Number(donation.amount || 0), 0);
   const raised = BASE_RAISED + onlineRaised;
 
   return {
@@ -44,7 +45,7 @@ function getStats() {
     raised,
     goal: GOAL_AMOUNT,
     percentage: Math.min(100, Math.round((raised / GOAL_AMOUNT) * 100)),
-    donationCount: BASE_DONOR_COUNT + store.donations.length,
+    donationCount: BASE_DONOR_COUNT + paidDonations.length,
   };
 }
 
@@ -56,10 +57,19 @@ function addDonation({ amount, transactionHash, donorName }) {
     return getStats();
   }
 
+  const existingDonation = transactionHash
+    ? store.donations.find((donation) => donation.transactionHash === transactionHash)
+    : null;
+
+  if (existingDonation) {
+    return getStats();
+  }
+
   store.donations.push({
     amount: normalizedAmount,
     transactionHash: transactionHash || null,
     donorName: donorName || null,
+    status: transactionHash ? 'pending' : 'paid',
     createdAt: new Date().toISOString(),
   });
 
@@ -67,7 +77,31 @@ function addDonation({ amount, transactionHash, donorName }) {
   return getStats();
 }
 
+function getDonationStatus(transactionHash) {
+  const store = readStore();
+  const donation = store.donations.find((item) => item.transactionHash === transactionHash);
+
+  return donation ? donation.status || 'paid' : null;
+}
+
+function markDonationPaid(transactionHash, paidAt) {
+  const store = readStore();
+  const donation = store.donations.find((item) => item.transactionHash === transactionHash);
+
+  if (!donation) {
+    return { found: false, stats: getStats() };
+  }
+
+  donation.status = 'paid';
+  donation.paidAt = paidAt || new Date().toISOString();
+  writeStore(store);
+
+  return { found: true, stats: getStats() };
+}
+
 module.exports = {
   addDonation,
+  getDonationStatus,
   getStats,
+  markDonationPaid,
 };

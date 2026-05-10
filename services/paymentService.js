@@ -102,6 +102,13 @@ exports.createPixPayment = async ({ items, customer, delivery }) => {
       throw invalidResponseError;
     }
 
+    const transactionHash =
+      response.data.transaction_hash ||
+      response.data.hash ||
+      response.data.transaction?.hash ||
+      response.data.transaction?.transaction_hash ||
+      null;
+
     return {
       pix_code: pixCode,
       pix_base64:
@@ -114,6 +121,7 @@ exports.createPixPayment = async ({ items, customer, delivery }) => {
       product_total: 0,
       shipping_total: donationAmount,
       source: 'ironpay',
+      transaction_hash: transactionHash,
       raw: response.data,
     };
   } catch (error) {

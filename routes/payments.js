@@ -7,6 +7,20 @@ router.get('/stats', (req, res) => {
   res.json(donationStore.getStats());
 });
 
+router.get('/status/:transactionHash', (req, res) => {
+  const status = donationStore.getDonationStatus(req.params.transactionHash);
+
+  if (!status) {
+    return res.status(404).json({ error: 'Doacao nao encontrada' });
+  }
+
+  return res.json({
+    transactionHash: req.params.transactionHash,
+    status,
+    isPaid: status === 'paid',
+  });
+});
+
 router.post('/checkout', async (req, res) => {
   try {
     const { items, customer, delivery } = req.body;
@@ -23,7 +37,7 @@ router.post('/checkout', async (req, res) => {
 
     const stats = donationStore.addDonation({
       amount: payment.charged_total,
-      transactionHash: payment.raw?.transaction_hash || payment.raw?.hash || null,
+      transactionHash: payment.transaction_hash,
       donorName: customer.name,
     });
 
