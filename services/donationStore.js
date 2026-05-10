@@ -1,8 +1,9 @@
 ﻿const fs = require('fs');
 const path = require('path');
 
+const CAMPAIGN_GOAL_AMOUNT = 60250;
 const BASE_RAISED = Number(process.env.CAMPAIGN_BASE_RAISED || 0);
-const GOAL_AMOUNT = Number(process.env.CAMPAIGN_GOAL_AMOUNT || 60250);
+const GOAL_AMOUNT = CAMPAIGN_GOAL_AMOUNT;
 const BASE_DONOR_COUNT = Number(process.env.CAMPAIGN_BASE_DONOR_COUNT || 0);
 const dataDir = path.join(__dirname, '..', 'data');
 const dataFile = path.join(dataDir, 'donations.json');
