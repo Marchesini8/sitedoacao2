@@ -150,11 +150,28 @@
         }
 
         .progress-fill {
+            position: relative;
             width: 0%;
             height: 100%;
+            overflow: hidden;
             border-radius: inherit;
-            background: var(--blue);
+            background: linear-gradient(90deg, var(--blue-dark), var(--blue), #1f7ae0);
             transition: width 450ms ease;
+        }
+
+        .progress-fill::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            width: 46%;
+            border-radius: inherit;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+            animation: progress-shine 1.8s ease-in-out infinite;
+        }
+
+        @keyframes progress-shine {
+            0% { transform: translateX(-120%); }
+            100% { transform: translateX(240%); }
         }
 
         .campaign-stats {
@@ -182,9 +199,93 @@
             font-weight: 900;
         }
 
+        .trust-line {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            color: var(--blue);
+            font-size: 12px;
+            font-weight: 900;
+        }
+
+        .verified-icon {
+            width: 18px;
+            height: 18px;
+            object-fit: contain;
+            flex: 0 0 auto;
+        }
+
         .needs-section,
         .faq-section {
             background: var(--soft);
+        }
+
+        .psalm-card {
+            border: 1px solid #c8d9f2;
+            border-radius: 12px;
+            background: #fff;
+            padding: 14px 16px;
+            color: var(--blue);
+            text-align: center;
+            box-shadow: 0 12px 24px rgba(0, 63, 146, 0.08);
+        }
+
+        .psalm-card strong {
+            display: block;
+            color: var(--orange);
+            font-size: 12px;
+            font-weight: 900;
+            text-transform: uppercase;
+        }
+
+        .psalm-card p {
+            margin-top: 6px;
+            font-size: 13px;
+            font-weight: 800;
+            line-height: 1.55;
+        }
+
+        .accounts-details {
+            max-width: 860px;
+            margin: 40px auto 0;
+            border: 1px solid #bfd0e8;
+            border-radius: 14px;
+            background: #fff;
+            box-shadow: 0 14px 32px rgba(15, 35, 70, 0.08);
+            overflow: hidden;
+        }
+
+        .accounts-details summary {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            min-height: 68px;
+            padding: 18px 22px;
+            color: var(--blue);
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: 900;
+            list-style: none;
+        }
+
+        .accounts-details summary::-webkit-details-marker {
+            display: none;
+        }
+
+        .accounts-details summary i {
+            transition: transform 180ms ease;
+        }
+
+        .accounts-details[open] summary i {
+            transform: rotate(180deg);
+        }
+
+        .accounts-grid {
+            display: grid;
+            gap: 4px;
+            padding: 0 14px 14px;
         }
 
         .need-card {
@@ -624,6 +725,10 @@
                         <div class="campaign-stat"><p id="goal-value" class="campaign-stat-value text-xl font-black md:text-2xl">R$ 60,250</p><p class="mt-1 text-xs text-[var(--muted)]">meta</p></div>
                     </div>
                 </div>
+                <div class="psalm-card mt-4">
+                    <strong>Salmos 41:1</strong>
+                    <p>Bem-aventurado é aquele que atende ao pobre; o Senhor o livrará no dia do mal.</p>
+                </div>
 
                 <button onclick="openDonation()" class="btn-primary mt-8">
                     <i data-lucide="heart" class="h-5 w-5"></i>
@@ -640,16 +745,22 @@
 
         <section class="needs-section py-14 md:py-20">
             <div class="wide-content">
-                <h2 class="text-center text-3xl font-black text-[var(--blue)] md:text-4xl">Necessidades - Maio 2026</h2>
-                <div class="mx-auto mt-10 grid max-w-[860px] gap-4 md:grid-cols-2">
-                    <div class="need-card"><span>3 vagas sociais</span><strong>R$ 8.600</strong></div>
-                    <div class="need-card"><span>Reforma do telhado</span><strong>R$ 15.000</strong></div>
-                    <div class="need-card"><span>Contas atrasadas</span><strong>R$ 14.200</strong></div>
-                    <div class="need-card"><span>Medicamentos contínuos</span><strong>R$ 12.000</strong></div>
-                    <div class="need-card"><span>Toldo externo (vigilância sanitária)</span><strong>R$ 6.450</strong></div>
-                    <div class="need-card"><span>Manutenção hidráulica e elétrica</span><strong>R$ 4.000</strong></div>
-                    <div class="total-card md:col-span-1"><span>Total necessário</span><strong>R$ 60.250</strong></div>
-                </div>
+                <h2 class="text-center text-3xl font-black text-[var(--blue)] md:text-4xl">Prestação de contas</h2>
+                <details class="accounts-details" open>
+                    <summary>
+                        <span>Necessidades - Maio 2026</span>
+                        <i data-lucide="chevron-down" class="h-5 w-5"></i>
+                    </summary>
+                    <div class="accounts-grid md:grid-cols-2">
+                        <div class="need-card"><span>3 vagas sociais</span><strong>R$ 8.600</strong></div>
+                        <div class="need-card"><span>Reforma do telhado</span><strong>R$ 15.000</strong></div>
+                        <div class="need-card"><span>Contas atrasadas</span><strong>R$ 14.200</strong></div>
+                        <div class="need-card"><span>Medicamentos contínuos</span><strong>R$ 12.000</strong></div>
+                        <div class="need-card"><span>Toldo externo (vigilância sanitária)</span><strong>R$ 6.450</strong></div>
+                        <div class="need-card"><span>Manutenção hidráulica e elétrica</span><strong>R$ 4.000</strong></div>
+                        <div class="total-card md:col-span-1"><span>Total necessário</span><strong>R$ 60.250</strong></div>
+                    </div>
+                </details>
                 <img class="mx-auto mt-12 h-[260px] w-full max-w-[860px] rounded-2xl object-cover md:h-[360px]" src="assets/leao-refeitorio.jpg" alt="Refeitório da instituição com idosos almoçando">
             </div>
         </section>
@@ -664,7 +775,7 @@
             </div>
             <button onclick="openDonation()" class="btn-primary mt-8">
                 <i data-lucide="heart" class="h-4 w-4"></i>
-                Fazer parte dessa missão
+                AJUDAR UM IDOSO
             </button>
         </section>
 
@@ -679,7 +790,7 @@
                 </div>
                 <button onclick="openDonation()" class="btn-primary mt-8">
                     <i data-lucide="heart" class="h-4 w-4"></i>
-                    Ajudar a manter o lar aberto
+                    AJUDAR UM IDOSO
                 </button>
             </div>
         </section>
@@ -801,6 +912,10 @@
                         </a>
                     </div>
                 </div>
+                <div class="mt-5 flex flex-wrap items-center justify-center gap-4 text-sm text-[var(--muted)]">
+                    <span class="inline-flex items-center gap-1"><i data-lucide="map-pin" class="h-4 w-4"></i> Várzea Paulista, SP</span>
+                    <span class="verified-pill"><img src="assets/verificado.png" alt="" class="h-4 w-4 object-contain"> Instituição Verificada</span>
+                </div>
             </div>
         </section>
 
@@ -861,7 +976,7 @@
                             AJUDAR UM IDOSO
                             <i data-lucide="hand-heart" class="h-4 w-4"></i>
                         </button>
-                        <p class="mt-3 text-center text-[10px] text-gray-500">Pagamento seguro via PIX - Instituição Leão de Judá</p>
+                        <p class="trust-line mt-3 w-full"><img src="assets/verificado.png" alt="" class="verified-icon"> Pagamento 100% seguro e verificado</p>
                     </form>
 
                     <div id="pix-panel" class="mt-5 hidden rounded-md border border-gray-200 bg-gray-50 p-3">
