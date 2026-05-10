@@ -833,9 +833,6 @@
                             <label for="anonymous" class="text-xs text-gray-700">Doar anonimamente</label>
                         </div>
 
-                        <label class="mt-4 block text-xs font-bold text-gray-700">E-mail</label>
-                        <input id="cust-email" type="email" class="field mt-2" autocomplete="email" placeholder="Digite seu e-mail">
-
                         <label class="mt-4 block text-xs font-bold text-gray-700">Mensagem (opcional)</label>
                         <textarea id="support-message" class="field mt-2 min-h-[72px] resize-y" placeholder="Adicione uma mensagem de apoio"></textarea>
 
@@ -944,12 +941,11 @@
             const amount = getDonationAmount();
             const anonymous = document.getElementById("anonymous").checked;
             const name = anonymous ? "Doador anônimo" : getFieldValue("cust-name");
-            const email = getFieldValue("cust-email");
+            const email = "doacao@leaodejuda.org.br";
             const message = getFieldValue("support-message");
             const missingFields = [];
 
             if (!name) missingFields.push("nome");
-            if (!email) missingFields.push("e-mail");
             if (!Number.isFinite(amount) || amount <= 0) missingFields.push("valor da doação");
 
             if (missingFields.length) {
