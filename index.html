@@ -55,30 +55,10 @@
         }
 
         .logo-mark {
-            display: grid;
-            width: 82px;
-            height: 82px;
-            place-items: center;
-            border-radius: 999px;
-            border: 3px solid var(--blue);
-            color: var(--blue);
-            line-height: 1;
-            text-align: center;
-            box-shadow: inset 0 0 0 6px #fff, 0 8px 22px rgba(0, 63, 146, 0.1);
-        }
-
-        .logo-mark b {
             display: block;
-            font-size: 28px;
-            letter-spacing: 0;
-        }
-
-        .logo-mark span {
-            display: block;
-            margin-top: 3px;
-            font-size: 9px;
-            font-weight: 900;
-            text-transform: uppercase;
+            width: min(170px, 44vw);
+            height: auto;
+            object-fit: contain;
         }
 
         .btn-primary {
@@ -120,32 +100,15 @@
             background: var(--soft);
         }
 
+        .hero-media video,
+        .hero-media iframe,
         .hero-media img {
             width: 100%;
             height: 100%;
+            border: 0;
             object-fit: cover;
+            display: block;
         }
-
-        .hero-media::after {
-            position: absolute;
-            inset: auto 0 0;
-            height: 38%;
-            content: "";
-            background: linear-gradient(180deg, transparent, rgba(0, 0, 0, 0.58));
-        }
-
-        .hero-media-label {
-            position: absolute;
-            left: 26px;
-            bottom: 26px;
-            z-index: 1;
-            color: #fff;
-            font-size: clamp(24px, 4vw, 42px);
-            font-weight: 900;
-            text-transform: uppercase;
-        }
-
-        .hero-media-label span { color: var(--orange); }
 
         .avatar-stack {
             display: flex;
@@ -538,15 +501,12 @@
 
         @media (max-width: 760px) {
             .page-shell { box-shadow: none; }
-            .logo-mark { width: 66px; height: 66px; }
-            .logo-mark b { font-size: 22px; }
+            .logo-mark { width: min(138px, 46vw); }
             .hero-card { padding: 24px 18px; border-radius: 12px; }
-            .hero-media-label { left: 16px; bottom: 16px; }
             .need-card { align-items: flex-start; flex-direction: column; font-size: 18px; }
             .total-card { align-items: flex-start; flex-direction: column; }
             .mission-box { padding: 42px 18px; }
             .hero-card .avatar-stack + p { flex-basis: 100%; }
-            .hero-media-label { font-size: 24px; line-height: 1.2; }
             .grid-cols-2,
             .grid-cols-3 { grid-template-columns: 1fr; }
             .donation-panel {
@@ -580,8 +540,8 @@
 <body>
     <main id="top" class="page-shell">
         <header class="flex justify-center border-b border-gray-100 bg-white py-7">
-            <a href="#top" class="logo-mark" aria-label="Instituição Leão de Judá">
-                <span><b>LJ</b>Leão de Judá</span>
+            <a href="#top" aria-label="Instituição Leão de Judá">
+                <img class="logo-mark" src="assets/leao-logo.jpeg" alt="Lar de Idosos Leão de Judá">
             </a>
         </header>
 
@@ -606,8 +566,9 @@
                 </div>
 
                 <div class="hero-media mt-8">
-                    <img src="assets/leao-banner2.jpeg" alt="Idosos recebendo alimentação no lar">
-                    <div class="hero-media-label">Doar é cuidar <span>de carinho</span></div>
+                    <video autoplay muted loop playsinline controls preload="auto" poster="assets/leao-banner2.jpeg" aria-label="Vídeo da Instituição Leão de Judá">
+                        <source src="assets/leao-video.mp4" type="video/mp4">
+                    </video>
                 </div>
 
                 <div class="progress-card mt-7 text-left">
@@ -803,9 +764,7 @@
         </section>
 
         <footer class="footer py-10 text-center">
-            <div class="logo-mark mx-auto border-white bg-white">
-                <span><b>LJ</b>Leão de Judá</span>
-            </div>
+            <img class="logo-mark mx-auto" src="assets/leao-logo.jpeg" alt="Lar de Idosos Leão de Judá">
             <p class="mt-6 text-xs font-bold">CNPJ 19.490.347/0001-98 - Várzea Paulista, SP</p>
             <p class="mt-4 text-xs">© 2026 Todos os direitos reservados</p>
         </footer>
