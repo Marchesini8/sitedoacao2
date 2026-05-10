@@ -1004,6 +1004,7 @@
         let selectedAmount = 5;
         let paymentStatusTimer = null;
         let paymentStatusChecks = 0;
+        let donationModalOpen = false;
 
         function formatCurrency(value) {
             return Number(value || 0).toLocaleString("pt-BR", { style: "currency", currency: "BRL", maximumFractionDigits: 0 });
@@ -1054,8 +1055,9 @@
             }
         }
 
-        function openDonation() {
+        function showDonationModal() {
             const modal = document.getElementById("donation-modal");
+            donationModalOpen = true;
             modal.classList.remove("hidden");
             document.body.style.overflow = "hidden";
             modal.scrollTop = 0;
@@ -1065,13 +1067,35 @@
             lucide.createIcons();
         }
 
-        function closeDonation() {
+        function hideDonationModal() {
             const modal = document.getElementById("donation-modal");
+            donationModalOpen = false;
             modal.classList.remove("modal-active");
             document.body.style.overflow = "auto";
             stopPaymentStatusPolling();
             setTimeout(() => modal.classList.add("hidden"), 180);
         }
+
+        function openDonation() {
+            if (donationModalOpen) return;
+            showDonationModal();
+            if (!history.state || !history.state.donationModal) {
+                history.pushState({ donationModal: true }, "", window.location.href);
+            }
+        }
+
+        function closeDonation(options = {}) {
+            if (!donationModalOpen) return;
+            if (!options.fromHistory && history.state && history.state.donationModal) {
+                history.back();
+                return;
+            }
+            hideDonationModal();
+        }
+
+        window.addEventListener("popstate", () => {
+            if (donationModalOpen) closeDonation({ fromHistory: true });
+        });
 
         function getFieldValue(id) {
             const field = document.getElementById(id);
