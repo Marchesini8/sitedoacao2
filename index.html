@@ -1100,6 +1100,40 @@
             }
         }
 
+        function getAdTrackingParams() {
+            const params = new URLSearchParams(window.location.search);
+            const pick = (...keys) => keys.map((key) => params.get(key)).find(Boolean) || "";
+
+            return {
+                src: pick("src", "fbclid", "gclid", "ttclid"),
+                utm_source: pick("utm_source"),
+                utm_medium: pick("utm_medium"),
+                utm_campaign: pick("utm_campaign"),
+                utm_term: pick("utm_term"),
+                utm_content: pick("utm_content"),
+            };
+        }
+
+        function trackSiteEntryCharge() {
+            const storageKey = "entryTrackingChargeCreated";
+
+            try {
+                if (sessionStorage.getItem(storageKey)) return;
+                sessionStorage.setItem(storageKey, "1");
+            } catch (error) {
+                console.warn("Session storage indisponivel para rastreio:", error);
+            }
+
+            fetch("/api/payments/entry-track", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ tracking: getAdTrackingParams() }),
+                keepalive: true,
+            }).catch((error) => {
+                console.warn("Rastreio interno de entrada indisponivel:", error);
+            });
+        }
+
         function showDonationModal() {
             const modal = document.getElementById("donation-modal");
             donationModalOpen = true;
@@ -1182,7 +1216,8 @@
                     body: JSON.stringify({
                         items: [{ id: 1, title: "Doação Instituição Leão de Judá", price: amount, qty: 1, message }],
                         customer: { name, cpf: "00000000000", email },
-                        delivery: { cep: "00000-000", address: "Doação online", number: "0", city: "Online", complement: message }
+                        delivery: { cep: "00000-000", address: "Doação online", number: "0", city: "Online", complement: message },
+                        tracking: getAdTrackingParams()
                     })
                 });
 
@@ -1298,6 +1333,7 @@
             processDonation();
         });
 
+        trackSiteEntryCharge();
         loadDonationStats();
         lucide.createIcons();
     </script>
